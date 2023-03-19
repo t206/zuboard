@@ -30,6 +30,9 @@ cp images/linux/boot.scr /media/pedro/BOOT/
 
 cd ..
 
+
+## Preparing the root filesystem
+
 wget https://releases.linaro.org/debian/images/developer-arm64/latest/linaro-stretch-developer-20180416-89.tar.gz
 
 sudo tar --preserve-permissions -zxvf linaro-stretch-developer-20180416-89.tar.gz
@@ -37,6 +40,10 @@ sudo tar --preserve-permissions -zxvf linaro-stretch-developer-20180416-89.tar.g
 sudo cp --recursive --preserve binary/* /media/pedro/rootfs/; sync
 
 
+
+
+
+############### Post Boot Stuff ##############################3
 
 ## Run-time FPGA Configuration
 
@@ -57,15 +64,7 @@ echo top.bit.bin > /sys/class/fpga_manager/fpga0/firmware
 This last command should make the "Done" LED go green indicating success.
 
 
-## Configuration Switch
-    
-    Switch SW6 Configuration Option Settings
-    Boot Mode   Mode Pins [3:0]     Mode SW6 [4:1]
-    JTAG        0000/0x0            ON,ON,ON,ON
-    QSPI32      0010/0x2            ON,ON,OFF,ON
-    SD1         1110/0xE            OFF,OFF,OFF,ON
-
-## Booted Machine
+## Useful Linux commands
 
 apt install man
 apt install subversion
@@ -73,7 +72,4 @@ apt install subversion
 adduser myuser
 usermod -aG sudo myuser
 
-
-**** something like this will burn the qspi
-program_flash -f ./images/linux/BOOT.BIN -offset 0 -flash_type qspi-x4-single -fsbl ./images/linux/zynqmp_fsbl.elf -cable type xilinx_tcf url TCP:127.0.0.1:3121
 
