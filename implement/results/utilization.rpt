@@ -1,14 +1,14 @@
-Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
---------------------------------------------------------------------------------------
-| Tool Version : Vivado v.2022.2.1 (lin64) Build 3719031 Thu Dec  8 18:35:06 MST 2022
-| Date         : Mon Mar 27 08:00:53 2023
-| Host         : pedro-u2022 running 64-bit Ubuntu 22.04.2 LTS
+Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
+---------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2023.1 (lin64) Build 3865809 Sun May  7 15:04:56 MDT 2023
+| Date         : Mon May 29 14:57:12 2023
+| Host         : WD-SN850 running 64-bit Ubuntu 20.04.6 LTS
 | Command      : report_utilization -file ./results/utilization.rpt
 | Design       : top
 | Device       : xczu1cg-sbva484-1-e
 | Speed File   : -1
 | Design State : Routed
---------------------------------------------------------------------------------------
+---------------------------------------------------------------------------------------------------------------------------------------------
 
 Utilization Design Information
 
@@ -33,8 +33,8 @@ Table of Contents
 +----------------------------+------+-------+------------+-----------+-------+
 |          Site Type         | Used | Fixed | Prohibited | Available | Util% |
 +----------------------------+------+-------+------------+-----------+-------+
-| CLB LUTs                   | 3335 |     0 |          0 |     37440 |  8.91 |
-|   LUT as Logic             | 3199 |     0 |          0 |     37440 |  8.54 |
+| CLB LUTs                   | 3333 |     0 |          0 |     37440 |  8.90 |
+|   LUT as Logic             | 3197 |     0 |          0 |     37440 |  8.54 |
 |   LUT as Memory            |  136 |     0 |          0 |     15840 |  0.86 |
 |     LUT as Distributed RAM |   88 |     0 |            |           |       |
 |     LUT as Shift Register  |   48 |     0 |            |           |       |
@@ -74,13 +74,13 @@ Table of Contents
 +--------------------------------------------+------+-------+------------+-----------+-------+
 |                  Site Type                 | Used | Fixed | Prohibited | Available | Util% |
 +--------------------------------------------+------+-------+------------+-----------+-------+
-| CLB                                        |  693 |     0 |          0 |      4680 | 14.81 |
-|   CLBL                                     |  454 |     0 |            |           |       |
-|   CLBM                                     |  239 |     0 |            |           |       |
-| LUT as Logic                               | 3199 |     0 |          0 |     37440 |  8.54 |
-|   using O5 output only                     |   68 |       |            |           |       |
-|   using O6 output only                     | 2385 |       |            |           |       |
-|   using O5 and O6                          |  746 |       |            |           |       |
+| CLB                                        |  715 |     0 |          0 |      4680 | 15.28 |
+|   CLBL                                     |  465 |     0 |            |           |       |
+|   CLBM                                     |  250 |     0 |            |           |       |
+| LUT as Logic                               | 3197 |     0 |          0 |     37440 |  8.54 |
+|   using O5 output only                     |   71 |       |            |           |       |
+|   using O6 output only                     | 2379 |       |            |           |       |
+|   using O5 and O6                          |  747 |       |            |           |       |
 | LUT as Memory                              |  136 |     0 |          0 |     15840 |  0.86 |
 |   LUT as Distributed RAM                   |   88 |     0 |            |           |       |
 |     using O5 output only                   |    0 |       |            |           |       |
@@ -91,10 +91,10 @@ Table of Contents
 |     using O6 output only                   |   48 |       |            |           |       |
 |     using O5 and O6                        |    0 |       |            |           |       |
 | CLB Registers                              | 3909 |     0 |          0 |     74880 |  5.22 |
-|   Register driven from within the CLB      | 1587 |       |            |           |       |
-|   Register driven from outside the CLB     | 2322 |       |            |           |       |
-|     LUT in front of the register is unused | 1153 |       |            |           |       |
-|     LUT in front of the register is used   | 1169 |       |            |           |       |
+|   Register driven from within the CLB      | 1580 |       |            |           |       |
+|   Register driven from outside the CLB     | 2329 |       |            |           |       |
+|     LUT in front of the register is unused | 1218 |       |            |           |       |
+|     LUT in front of the register is used   | 1111 |       |            |           |       |
 | Unique Control Sets                        |  246 |       |          0 |      9360 |  2.63 |
 +--------------------------------------------+------+-------+------------+-----------+-------+
 * * Note: Available Control Sets calculated as Slices * 2, Review the Control Sets Report for more information regarding control sets.
@@ -197,11 +197,11 @@ Table of Contents
 | Ref Name | Used | Functional Category |
 +----------+------+---------------------+
 | FDRE     | 3661 |            Register |
-| LUT6     | 1561 |                 CLB |
-| LUT5     |  750 |                 CLB |
-| LUT3     |  686 |                 CLB |
+| LUT6     | 1563 |                 CLB |
+| LUT5     |  748 |                 CLB |
+| LUT3     |  688 |                 CLB |
 | LUT4     |  499 |                 CLB |
-| LUT2     |  339 |                 CLB |
+| LUT2     |  336 |                 CLB |
 | RAMD32   |  148 |                 CLB |
 | FDCE     |  138 |            Register |
 | LUT1     |  110 |                 CLB |

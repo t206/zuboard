@@ -20,7 +20,7 @@ set script_folder [_tcl::get_script_folder]
 ################################################################
 # Check if script is running in correct Vivado version.
 ################################################################
-set scripts_vivado_version 2022.2
+set scripts_vivado_version 2023.1
 set current_vivado_version [version -short]
 
 if { [string first $scripts_vivado_version $current_vivado_version] == -1 } {
@@ -124,10 +124,10 @@ set bCheckIPsPassed 1
 set bCheckIPs 1
 if { $bCheckIPs == 1 } {
    set list_check_ips "\ 
+xilinx.com:ip:proc_sys_reset:5.0\
 xilinx.com:ip:axi_bram_ctrl:4.1\
 xilinx.com:ip:blk_mem_gen:8.4\
-xilinx.com:ip:proc_sys_reset:5.0\
-xilinx.com:ip:zynq_ultra_ps_e:3.4\
+xilinx.com:ip:zynq_ultra_ps_e:3.5\
 "
 
    set list_ips_missing ""
@@ -213,6 +213,9 @@ proc create_root_design { parentCell } {
  ] $axi_aclk
   set axi_aresetn [ create_bd_port -dir O -from 0 -to 0 -type rst axi_aresetn ]
 
+  # Create instance: rst_ps8_0_100M, and set properties
+  set rst_ps8_0_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps8_0_100M ]
+
   # Create instance: axi_bram_ctrl_0, and set properties
   set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_0 ]
   set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_0
@@ -229,11 +232,8 @@ proc create_root_design { parentCell } {
   ] $ps8_0_axi_periph
 
 
-  # Create instance: rst_ps8_0_100M, and set properties
-  set rst_ps8_0_100M [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 rst_ps8_0_100M ]
-
   # Create instance: zynq_ultra_ps_e_0, and set properties
-  set zynq_ultra_ps_e_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.4 zynq_ultra_ps_e_0 ]
+  set zynq_ultra_ps_e_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:zynq_ultra_ps_e:3.5 zynq_ultra_ps_e_0 ]
   set_property -dict [list \
     CONFIG.CAN0_BOARD_INTERFACE {custom} \
     CONFIG.CAN1_BOARD_INTERFACE {custom} \
@@ -496,48 +496,67 @@ proc create_root_design { parentCell } {
     CONFIG.PSU_MIO_62_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_63_INPUT_TYPE {cmos} \
     CONFIG.PSU_MIO_63_PULLUPDOWN {pullup} \
+    CONFIG.PSU_MIO_64_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_64_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_64_POLARITY {Default} \
     CONFIG.PSU_MIO_64_PULLUPDOWN {pullup} \
+    CONFIG.PSU_MIO_64_SLEW {fast} \
+    CONFIG.PSU_MIO_65_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_65_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_65_POLARITY {Default} \
     CONFIG.PSU_MIO_65_PULLUPDOWN {pullup} \
+    CONFIG.PSU_MIO_65_SLEW {fast} \
     CONFIG.PSU_MIO_66_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_66_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_66_POLARITY {Default} \
     CONFIG.PSU_MIO_66_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_66_SLEW {fast} \
+    CONFIG.PSU_MIO_67_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_67_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_67_POLARITY {Default} \
     CONFIG.PSU_MIO_67_PULLUPDOWN {pullup} \
+    CONFIG.PSU_MIO_67_SLEW {fast} \
     CONFIG.PSU_MIO_68_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_68_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_68_POLARITY {Default} \
     CONFIG.PSU_MIO_68_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_68_SLEW {fast} \
     CONFIG.PSU_MIO_69_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_69_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_69_POLARITY {Default} \
     CONFIG.PSU_MIO_69_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_69_SLEW {fast} \
     CONFIG.PSU_MIO_6_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_6_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_6_SLEW {fast} \
     CONFIG.PSU_MIO_70_DRIVE_STRENGTH {12} \
+    CONFIG.PSU_MIO_70_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_70_POLARITY {Default} \
     CONFIG.PSU_MIO_70_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_70_SLEW {fast} \
     CONFIG.PSU_MIO_71_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_71_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_71_POLARITY {Default} \
     CONFIG.PSU_MIO_71_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_71_SLEW {fast} \
     CONFIG.PSU_MIO_72_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_72_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_72_POLARITY {Default} \
     CONFIG.PSU_MIO_72_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_72_SLEW {fast} \
     CONFIG.PSU_MIO_73_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_73_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_73_POLARITY {Default} \
     CONFIG.PSU_MIO_73_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_73_SLEW {fast} \
     CONFIG.PSU_MIO_74_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_74_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_74_POLARITY {Default} \
     CONFIG.PSU_MIO_74_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_74_SLEW {fast} \
     CONFIG.PSU_MIO_75_DRIVE_STRENGTH {12} \
     CONFIG.PSU_MIO_75_INPUT_TYPE {cmos} \
+    CONFIG.PSU_MIO_75_POLARITY {Default} \
     CONFIG.PSU_MIO_75_PULLUPDOWN {pullup} \
     CONFIG.PSU_MIO_75_SLEW {fast} \
     CONFIG.PSU_MIO_76_DRIVE_STRENGTH {12} \
@@ -562,9 +581,9 @@ proc create_root_design { parentCell } {
     CONFIG.PSU_MIO_9_SLEW {fast} \
     CONFIG.PSU_MIO_TREE_PERIPHERALS {Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Quad SPI Flash#Feedback Clk#GPIO0 MIO#I2C 1#I2C 1#UART 0#UART 0#GPIO0 MIO#GPIO0 MIO#GPIO0\
 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#PMU GPI 0#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#PMU GPO\
-2#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#SPI 0#GPIO1 MIO#GPIO1 MIO#SPI 0#SPI 0#SPI 0#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#USB 1#USB\
-1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#USB 1#MDIO 2#MDIO 2} \
-    CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#gpio0[7]#scl_out#sda_out#rxd#txd#gpio0[12]#gpio0[13]#gpio0[14]#gpio0[15]#gpio0[16]#gpio0[17]#gpio0[18]#gpio0[19]#gpio0[20]#gpio0[21]#gpio0[22]#gpio0[23]#gpio0[24]#gpio0[25]#gpi[0]#gpio1[27]#gpio1[28]#gpio1[29]#gpio1[30]#gpio1[31]#gpio1[32]#gpio1[33]#gpo[2]#gpio1[35]#gpio1[36]#gpio1[37]#sclk_out#gpio1[39]#gpio1[40]#n_ss_out[0]#miso#mosi#gpio1[44]#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#ulpi_clk_in#ulpi_dir#ulpi_tx_data[2]#ulpi_nxt#ulpi_tx_data[0]#ulpi_tx_data[1]#ulpi_stp#ulpi_tx_data[3]#ulpi_tx_data[4]#ulpi_tx_data[5]#ulpi_tx_data[6]#ulpi_tx_data[7]#gem2_mdc#gem2_mdio_out}\
+2#GPIO1 MIO#GPIO1 MIO#GPIO1 MIO#SPI 0#GPIO1 MIO#GPIO1 MIO#SPI 0#SPI 0#SPI 0#GPIO1 MIO#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#SD 1#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#Gem 2#GPIO2 MIO#GPIO2\
+MIO#GPIO2 MIO#GPIO2 MIO#GPIO2 MIO#GPIO2 MIO#GPIO2 MIO#GPIO2 MIO#GPIO2 MIO#GPIO2 MIO#GPIO2 MIO#GPIO2 MIO#MDIO 2#MDIO 2} \
+    CONFIG.PSU_MIO_TREE_SIGNALS {sclk_out#miso_mo1#mo2#mo3#mosi_mi0#n_ss_out#clk_for_lpbk#gpio0[7]#scl_out#sda_out#rxd#txd#gpio0[12]#gpio0[13]#gpio0[14]#gpio0[15]#gpio0[16]#gpio0[17]#gpio0[18]#gpio0[19]#gpio0[20]#gpio0[21]#gpio0[22]#gpio0[23]#gpio0[24]#gpio0[25]#gpi[0]#gpio1[27]#gpio1[28]#gpio1[29]#gpio1[30]#gpio1[31]#gpio1[32]#gpio1[33]#gpo[2]#gpio1[35]#gpio1[36]#gpio1[37]#sclk_out#gpio1[39]#gpio1[40]#n_ss_out[0]#miso#mosi#gpio1[44]#sdio1_cd_n#sdio1_data_out[0]#sdio1_data_out[1]#sdio1_data_out[2]#sdio1_data_out[3]#sdio1_cmd_out#sdio1_clk_out#rgmii_tx_clk#rgmii_txd[0]#rgmii_txd[1]#rgmii_txd[2]#rgmii_txd[3]#rgmii_tx_ctl#rgmii_rx_clk#rgmii_rxd[0]#rgmii_rxd[1]#rgmii_rxd[2]#rgmii_rxd[3]#rgmii_rx_ctl#gpio2[64]#gpio2[65]#gpio2[66]#gpio2[67]#gpio2[68]#gpio2[69]#gpio2[70]#gpio2[71]#gpio2[72]#gpio2[73]#gpio2[74]#gpio2[75]#gem2_mdc#gem2_mdio_out}\
 \
     CONFIG.PSU_PERIPHERAL_BOARD_PRESET {} \
     CONFIG.PSU_SD0_INTERNAL_BUS_WIDTH {8} \
@@ -576,7 +595,7 @@ MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 
     CONFIG.PSU_SMC_CYCLE_T4 {NA} \
     CONFIG.PSU_SMC_CYCLE_T5 {NA} \
     CONFIG.PSU_SMC_CYCLE_T6 {NA} \
-    CONFIG.PSU_USB3__DUAL_CLOCK_ENABLE {1} \
+    CONFIG.PSU_USB3__DUAL_CLOCK_ENABLE {0} \
     CONFIG.PSU_VALUE_SILVERSION {3} \
     CONFIG.PSU__ACPU0__POWER__ON {1} \
     CONFIG.PSU__ACPU1__POWER__ON {1} \
@@ -1187,12 +1206,12 @@ MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 MIO#GPIO0 
     CONFIG.PSU__PRESET_APPLIED {1} \
     CONFIG.PSU__PROTECTION__DDR_SEGMENTS {NONE} \
     CONFIG.PSU__PROTECTION__ENABLE {0} \
-    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
-subsystemId:PMU Firmware |  SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU\
-Firmware |  SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware\
-|  SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware |  SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware\
-|  SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware | SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write; subsystemId:Secure Subsystem}\
-\
+    CONFIG.PSU__PROTECTION__FPD_SEGMENTS {SA:0xFD1A0000; SIZE:1280; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD000000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD010000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD020000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD030000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD040000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD050000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |   SA:0xFD610000; SIZE:512; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
+subsystemId:PMU Firmware  |   SA:0xFD5D0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware  |  SA:0xFD1A0000 ; SIZE:1280; UNIT:KB; RegionTZ:Secure ; WrAllowed:Read/Write;\
+subsystemId:Secure Subsystem} \
     CONFIG.PSU__PROTECTION__LPD_SEGMENTS {SA:0xFF980000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF5E0000; SIZE:2560; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write;\
 subsystemId:PMU Firmware| SA:0xFFCC0000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFF180000; SIZE:768; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU\
 Firmware| SA:0xFF410000; SIZE:640; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware| SA:0xFFA70000; SIZE:64; UNIT:KB; RegionTZ:Secure; WrAllowed:Read/Write; subsystemId:PMU Firmware|\
@@ -1291,9 +1310,9 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
     CONFIG.PSU__UART0__PERIPHERAL__IO {MIO 10 .. 11} \
     CONFIG.PSU__UART1__PERIPHERAL__ENABLE {0} \
     CONFIG.PSU__USB0__PERIPHERAL__ENABLE {0} \
+    CONFIG.PSU__USB0__RESET__ENABLE {0} \
     CONFIG.PSU__USB1__PERIPHERAL__ENABLE {0} \
-    CONFIG.PSU__USB__RESET__MODE {Boot Pin} \
-    CONFIG.PSU__USB__RESET__POLARITY {Active Low} \
+    CONFIG.PSU__USB1__RESET__ENABLE {0} \
     CONFIG.PSU__USE__ADMA {0} \
     CONFIG.PSU__USE__APU_LEGACY_INTERRUPT {0} \
     CONFIG.PSU__USE__AUDIO {0} \
@@ -1366,9 +1385,9 @@ Port;FD4A0000;FD4AFFFF;0|FPD;DPDMA;FD4C0000;FD4CFFFF;0|FPD;DDR_XMPU5_CFG;FD05000
   connect_bd_intf_net -intf_net zynq_ultra_ps_e_0_M_AXI_HPM0_FPD [get_bd_intf_pins ps8_0_axi_periph/S00_AXI] [get_bd_intf_pins zynq_ultra_ps_e_0/M_AXI_HPM0_FPD]
 
   # Create port connections
-  connect_bd_net -net rst_ps8_0_100M_peripheral_aresetn [get_bd_ports axi_aresetn] [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins rst_ps8_0_100M/peripheral_aresetn]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_ports axi_aclk] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins rst_ps8_0_100M/slowest_sync_clk] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk] [get_bd_pins zynq_ultra_ps_e_0/pl_clk0]
-  connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins rst_ps8_0_100M/ext_reset_in] [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0]
+  connect_bd_net -net rst_ps8_0_100M_peripheral_aresetn [get_bd_pins rst_ps8_0_100M/peripheral_aresetn] [get_bd_ports axi_aresetn] [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] [get_bd_pins ps8_0_axi_periph/ARESETN] [get_bd_pins ps8_0_axi_periph/S00_ARESETN] [get_bd_pins ps8_0_axi_periph/M00_ARESETN] [get_bd_pins ps8_0_axi_periph/M01_ARESETN]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_clk0 [get_bd_pins zynq_ultra_ps_e_0/pl_clk0] [get_bd_ports axi_aclk] [get_bd_pins rst_ps8_0_100M/slowest_sync_clk] [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] [get_bd_pins ps8_0_axi_periph/ACLK] [get_bd_pins ps8_0_axi_periph/S00_ACLK] [get_bd_pins ps8_0_axi_periph/M00_ACLK] [get_bd_pins ps8_0_axi_periph/M01_ACLK] [get_bd_pins zynq_ultra_ps_e_0/maxihpm0_fpd_aclk]
+  connect_bd_net -net zynq_ultra_ps_e_0_pl_resetn0 [get_bd_pins zynq_ultra_ps_e_0/pl_resetn0] [get_bd_pins rst_ps8_0_100M/ext_reset_in]
 
   # Create address segments
   assign_bd_address -offset 0xA0000000 -range 0x00010000 -target_address_space [get_bd_addr_spaces zynq_ultra_ps_e_0/Data] [get_bd_addr_segs M00_AXI/Reg] -force
