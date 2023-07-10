@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2023.1 (lin64) Build 3865809 Sun May  7 15:04:56 MDT 2023
-| Date         : Mon May 29 14:57:12 2023
-| Host         : WD-SN850 running 64-bit Ubuntu 20.04.6 LTS
+| Date         : Tue Jul  4 12:00:42 2023
+| Host         : pedro-u2022 running 64-bit Ubuntu 22.04.2 LTS
 | Command      : report_utilization -file ./results/utilization.rpt
 | Design       : top
 | Device       : xczu1cg-sbva484-1-e
