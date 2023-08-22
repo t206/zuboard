@@ -3,7 +3,9 @@ close_project -quiet
 file delete -force proj.xpr *.os *.jou *.log proj.srcs proj.cache proj.runs
 #
 create_project -force proj 
-set_property board_part avnet.com:zuboard_1cg:part0:1.0 [current_project]
+#set_property board_part avnet.com:zuboard_1cg:part0:1.0 [current_project]
+set_property part xczu1cg-sbva484-1-e [current_project]
+
 #set_param board.repoPaths /opt/Xilinx/Vivado/2021.1/data/boards/board_files
 #set_property board_part xilinx.com:zcu104:part0:1.0 [current_project]
 #set_property board_part xilinx.com:kv260:part0:1.1 [current_project]
