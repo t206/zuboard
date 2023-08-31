@@ -21,9 +21,9 @@ _EL2_STACK_SIZE = DEFINED(_EL2_STACK_SIZE) ? _EL2_STACK_SIZE : 1024;
 
 MEMORY
 {
-   psu_ddr_0_MEM_0 : ORIGIN = 0x0, LENGTH = 0x7FF00000
+   axi_bram_ctrl_0_Mem0 : ORIGIN = 0x80000000, LENGTH = 0x2000
+   psu_ddr_0_MEM_0 : ORIGIN = 0x0, LENGTH = 0x3FF00000
    psu_ocm_ram_0_MEM_0 : ORIGIN = 0xFFFC0000, LENGTH = 0x40000
-   psu_qspi_linear_0_MEM_0 : ORIGIN = 0xC0000000, LENGTH = 0x20000000
 }
 
 /* Specify the default entry point to the program */
@@ -35,6 +35,7 @@ ENTRY(_vector_table)
 SECTIONS
 {
 .text : {
+   . = ALIGN(2048);
    KEEP (*(.vectors))
    *(.boot)
    *(.text)

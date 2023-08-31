@@ -14,7 +14,7 @@ setws ./workspace
 
 platform create -name "standalone_plat" -hw $hw -proc $proc -os standalone
 app create -name hello1 -platform standalone_plat -domain standalone_domain -template "Empty Application(C)"
-file link -symbolic ./workspace/hello1/src/hello1.c             ../../../src/hello1/hello1.c
+file link -symbolic ./workspace/hello1/src/test.c             ../../../src/hello1/test.c
 file link -symbolic ./workspace/hello1/src/fpga.h               ../../../src/fpga.h
 file link -symbolic ./workspace/hello1/src/platform.c           ../../../src/hello1/platform.c
 file link -symbolic ./workspace/hello1/src/platform.h           ../../../src/hello1/platform.h
