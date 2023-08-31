@@ -2,11 +2,11 @@
 module top (
 );
 
-    logic [39:0]    M00_AXI_araddr;
+    logic [31:0]    M00_AXI_araddr;
     logic [2:0]     M00_AXI_arprot;
     logic           M00_AXI_arready;
     logic           M00_AXI_arvalid;
-    logic [39:0]    M00_AXI_awaddr;
+    logic [31:0]    M00_AXI_awaddr;
     logic [2:0]     M00_AXI_awprot;
     logic           M00_AXI_awready;
     logic           M00_AXI_awvalid;
