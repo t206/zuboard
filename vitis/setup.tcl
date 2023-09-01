@@ -13,11 +13,18 @@ set proc "psu_cortexa53_0"
 setws ./workspace
 
 platform create -name "standalone_plat" -hw $hw -proc $proc -os standalone
-app create -name hello1 -platform standalone_plat -domain standalone_domain -template "Empty Application(C)"
-file link -symbolic ./workspace/hello1/src/test.c             ../../../src/hello1/test.c
-file link -symbolic ./workspace/hello1/src/fpga.h               ../../../src/fpga.h
-file delete -force  ./workspace/hello1/src/lscript.ld
-file link -symbolic ./workspace/hello1/src/lscript.ld           ../../../src/hello1/lscript.ld
+app create -name spi_test -platform standalone_plat -domain standalone_domain -template "Empty Application(C)"
+file link -symbolic ./workspace/spi_test/src/test.c             ../../../src/spi_test/test.c
+file link -symbolic ./workspace/spi_test/src/fpga.h               ../../../src/fpga.h
+file delete -force  ./workspace/spi_test/src/lscript.ld
+file link -symbolic ./workspace/spi_test/src/lscript.ld           ../../../src/spi_test/lscript.ld
+
+#platform create -name "standalone_plat" -hw $hw -proc $proc -os standalone
+#app create -name hello1 -platform standalone_plat -domain standalone_domain -template "Empty Application(C)"
+#file link -symbolic ./workspace/hello1/src/test.c             ../../../src/hello1/test.c
+#file link -symbolic ./workspace/hello1/src/fpga.h               ../../../src/fpga.h
+#file delete -force  ./workspace/hello1/src/lscript.ld
+#file link -symbolic ./workspace/hello1/src/lscript.ld           ../../../src/hello1/lscript.ld
 
 #platform create -name "standalone_plat"    -hw $hw -proc $proc -os standalone
 ##bsp setlib -name lwip211 -ver 1.6

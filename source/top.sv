@@ -1,5 +1,7 @@
 //
 module top (
+    inout   logic   temp_i2c_scl,
+    inout   logic   temp_i2c_sda
 );
 
     logic [39:0]    M00_AXI_araddr;
@@ -25,6 +27,13 @@ module top (
     logic           axi_aclk;
     logic [0:0]     axi_aresetn;
     
+    logic temp_i2c_scl_i, temp_i2c_scl_o, temp_i2c_scl_t;
+    logic temp_i2c_sda_i, temp_i2c_sda_o, temp_i2c_sda_t;    
+    
+    logic SPI_1_io0_i, SPI_1_io0_io, SPI_1_io0_o, SPI_1_io0_t;
+    logic SPI_1_io1_i, SPI_1_io1_io, SPI_1_io1_o, SPI_1_io1_t;
+    logic SPI_1_sck_i, SPI_1_sck_io, SPI_1_sck_o, SPI_1_sck_t;
+    logic SPI_1_ss_i,  SPI_1_ss_io,  SPI_1_ss_o,  SPI_1_ss_t;
 
     system system_i (
         .M00_AXI_araddr     (M00_AXI_araddr),
@@ -48,8 +57,46 @@ module top (
         .M00_AXI_wvalid     (M00_AXI_wvalid),
         //
         .axi_aclk           (axi_aclk),
-        .axi_aresetn        (axi_aresetn)
+        .axi_aresetn        (axi_aresetn),
+        //
+        .temp_i2c_scl_i(temp_i2c_scl_i),
+        .temp_i2c_scl_o(temp_i2c_scl_o),
+        .temp_i2c_scl_t(temp_i2c_scl_t),
+        .temp_i2c_sda_i(temp_i2c_sda_i),
+        .temp_i2c_sda_o(temp_i2c_sda_o),
+        .temp_i2c_sda_t(temp_i2c_sda_t),
+        //
+        .SPI_1_io0_i(SPI_1_io0_i),
+        .SPI_1_io0_o(SPI_1_io0_o),
+        .SPI_1_io0_t(SPI_1_io0_t),
+        .SPI_1_io1_i(SPI_1_io1_i),
+        .SPI_1_io1_o(SPI_1_io1_o),
+        .SPI_1_io1_t(SPI_1_io1_t),
+        .SPI_1_sck_i(SPI_1_sck_i),
+        .SPI_1_sck_o(SPI_1_sck_o),
+        .SPI_1_sck_t(SPI_1_sck_t),
+        .SPI_1_ss_i(SPI_1_ss_i),
+        .SPI_1_ss_o(SPI_1_ss_o),
+        .SPI_1_ss_t(SPI_1_ss_t)        
     );
+    
+    assign SPI_1_io0_i = SPI_1_io0_o;
+    assign SPI_1_io1_i = SPI_1_io0_o;
+    assign SPI_1_sck_i = SPI_1_sck_o;
+    assign SPI_1_ss_i  = SPI_1_ss_o;
+    
+    spi_ila spi_ila_inst (.clk(axi_aclk), .probe0({
+        SPI_1_io0_i, SPI_1_io0_io, SPI_1_io0_o, SPI_1_io0_t,
+        SPI_1_io1_i, SPI_1_io1_io, SPI_1_io1_o, SPI_1_io1_t,
+        SPI_1_sck_i, SPI_1_sck_io, SPI_1_sck_o, SPI_1_sck_t,
+        SPI_1_ss_i,  SPI_1_ss_io,  SPI_1_ss_o,  SPI_1_ss_t
+    }));
+    
+
+    IOBUF temp_i2c_scl_iobuf (.I(temp_i2c_scl_o), .IO(temp_i2c_scl), .O(temp_i2c_scl_i), .T(temp_i2c_scl_t));
+    IOBUF temp_i2c_sda_iobuf (.I(temp_i2c_sda_o), .IO(temp_i2c_sda), .O(temp_i2c_sda_i), .T(temp_i2c_sda_t));
+
+    
     
     // This register file gives software contol over unit under test (UUT).
     localparam int Nregs = 16;

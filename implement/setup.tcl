@@ -5,18 +5,13 @@ file delete -force proj.xpr *.os *.jou *.log proj.srcs proj.cache proj.runs
 create_project -force proj 
 set_property board_part avnet.com:zuboard_1cg:part0:1.0 [current_project]
 #set_property part xczu1cg-sbva484-1-e [current_project]
-
-#set_param board.repoPaths /opt/Xilinx/Vivado/2021.1/data/boards/board_files
-#set_property board_part xilinx.com:zcu104:part0:1.0 [current_project]
-#set_property board_part xilinx.com:kv260:part0:1.1 [current_project]
-#set_property board_part em.avnet.com:ultrazed_eg_iocc_production:part0:1.0 [current_project]
 set_property target_language Verilog [current_project]
 set_property default_lib work [current_project]
 load_features ipintegrator
 
-#read_ip ../source/matinv_ram/matinv_ram.xci
-#upgrade_ip -quiet  [get_ips *]
-#generate_target {all} [get_ips *]
+read_ip ../source/spi_ila/spi_ila.xci
+upgrade_ip -quiet  [get_ips *]
+generate_target {all} [get_ips *]
 
 source ../source/system.tcl
 generate_target {synthesis implementation} [get_files ./proj.srcs/sources_1/bd/system/system.bd]
