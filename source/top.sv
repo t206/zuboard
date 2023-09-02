@@ -1,7 +1,12 @@
 //
 module top (
     inout   logic   temp_i2c_scl,
-    inout   logic   temp_i2c_sda
+    inout   logic   temp_i2c_sda,
+    //
+    inout   logic   spi_1_mosi,
+    inout   logic   spi_1_miso,
+    inout   logic   spi_1_sck,
+    inout   logic   spi_1_csn
 );
 
     logic [39:0]    M00_AXI_araddr;
@@ -30,10 +35,10 @@ module top (
     logic temp_i2c_scl_i, temp_i2c_scl_o, temp_i2c_scl_t;
     logic temp_i2c_sda_i, temp_i2c_sda_o, temp_i2c_sda_t;    
     
-    logic SPI_1_io0_i, SPI_1_io0_io, SPI_1_io0_o, SPI_1_io0_t;
-    logic SPI_1_io1_i, SPI_1_io1_io, SPI_1_io1_o, SPI_1_io1_t;
-    logic SPI_1_sck_i, SPI_1_sck_io, SPI_1_sck_o, SPI_1_sck_t;
-    logic SPI_1_ss_i,  SPI_1_ss_io,  SPI_1_ss_o,  SPI_1_ss_t;
+    logic SPI_1_io0_i, SPI_1_io0_o, SPI_1_io0_t;
+    logic SPI_1_io1_i, SPI_1_io1_o, SPI_1_io1_t;
+    logic SPI_1_sck_i, SPI_1_sck_o, SPI_1_sck_t;
+    logic SPI_1_ss_i,  SPI_1_ss_o,  SPI_1_ss_t;
 
     system system_i (
         .M00_AXI_araddr     (M00_AXI_araddr),
@@ -80,16 +85,21 @@ module top (
         .SPI_1_ss_t(SPI_1_ss_t)        
     );
     
-    assign SPI_1_io0_i = SPI_1_io0_o;
-    assign SPI_1_io1_i = SPI_1_io0_o;
-    assign SPI_1_sck_i = SPI_1_sck_o;
-    assign SPI_1_ss_i  = SPI_1_ss_o;
+//    assign SPI_1_io0_i = SPI_1_io0_o;
+//    assign SPI_1_io1_i = SPI_1_io0_o;
+//    assign SPI_1_sck_i = SPI_1_sck_o;
+//    assign SPI_1_ss_i  = SPI_1_ss_o;
+
+    IOBUF SPI_1_io0_iobuf (.I(SPI_1_io0_o), .IO(spi_1_mosi), .O(SPI_1_io0_i), .T(SPI_1_io0_t));
+    IOBUF SPI_1_io1_iobuf (.I(SPI_1_io1_o), .IO(spi_1_miso), .O(SPI_1_io1_i), .T(SPI_1_io1_t));
+    IOBUF SPI_1_sck_iobuf (.I(SPI_1_sck_o), .IO(spi_1_sck),  .O(SPI_1_sck_i), .T(SPI_1_sck_t));
+    IOBUF SPI_1_ss_iobuf  (.I(SPI_1_ss_o),  .IO(spi_1_csn),  .O(SPI_1_ss_i),  .T(SPI_1_ss_t));
     
     spi_ila spi_ila_inst (.clk(axi_aclk), .probe0({
-        SPI_1_io0_i, SPI_1_io0_io, SPI_1_io0_o, SPI_1_io0_t,
-        SPI_1_io1_i, SPI_1_io1_io, SPI_1_io1_o, SPI_1_io1_t,
-        SPI_1_sck_i, SPI_1_sck_io, SPI_1_sck_o, SPI_1_sck_t,
-        SPI_1_ss_i,  SPI_1_ss_io,  SPI_1_ss_o,  SPI_1_ss_t
+        SPI_1_io0_i, SPI_1_io0_o, SPI_1_io0_t,
+        SPI_1_io1_i, SPI_1_io1_o, SPI_1_io1_t,
+        SPI_1_sck_i, SPI_1_sck_o, SPI_1_sck_t,
+        SPI_1_ss_i,  SPI_1_ss_o,  SPI_1_ss_t
     }));
     
 
