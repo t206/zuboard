@@ -6,7 +6,14 @@ module top (
     inout   logic   spi_1_mosi,
     inout   logic   spi_1_miso,
     inout   logic   spi_1_sck,
-    inout   logic   spi_1_csn
+    inout   logic   spi_1_csn,
+    //
+    output  logic   led1_red,
+    output  logic   led1_green,
+    output  logic   led1_blue,
+    output  logic   led2_red,
+    output  logic   led2_green,
+    output  logic   led2_blue
 );
 
     logic [39:0]    M00_AXI_araddr;
@@ -115,6 +122,13 @@ module top (
     assign slv_read[0] = 32'hdeadbeef;
     assign slv_read[1] = 32'h76543210;
     
+    
+    assign led1_red   = slv_reg[2][0];
+    assign led1_green = slv_reg[2][1];
+    assign led1_blue  = slv_reg[2][2];
+    assign led2_red   = slv_reg[2][4];
+    assign led2_green = slv_reg[2][5];
+    assign led2_blue  = slv_reg[2][6];
     assign slv_read[2] = slv_reg[2];
     
     assign slv_read[Nregs-1:3] = slv_reg[Nregs-1:3];

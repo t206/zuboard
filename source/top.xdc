@@ -12,3 +12,12 @@ set_property PACKAGE_PIN F6       [get_ports spi_1_sck]
 set_property PACKAGE_PIN G7       [get_ports spi_1_csn]
 
 
+set_property IOSTANDARD LVCMOS18  [get_ports {led2_*}]
+set_property IOSTANDARD LVCMOS18  [get_ports {led1_*}]
+set_property PACKAGE_PIN A7       [get_ports led1_red]
+set_property PACKAGE_PIN B6       [get_ports led1_green]
+set_property PACKAGE_PIN B5       [get_ports led1_blue]
+set_property PACKAGE_PIN B4       [get_ports led2_red]
+set_property PACKAGE_PIN A2       [get_ports led2_green]
+set_property PACKAGE_PIN F4       [get_ports led2_blue]
+
