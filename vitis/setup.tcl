@@ -14,10 +14,11 @@ setws ./workspace
 
 platform create -name "standalone_plat" -hw $hw -proc $proc -os standalone
 app create -name spi_test -platform standalone_plat -domain standalone_domain -template "Empty Application(C)"
-file link -symbolic ./workspace/spi_test/src/test.c             ../../../src/spi_test/test.c
-file link -symbolic ./workspace/spi_test/src/fpga.h               ../../../src/fpga.h
+file link -symbolic ./workspace/spi_test/src/lps22hh.h        ../../../src/spi_test/lps22hh.h
+file link -symbolic ./workspace/spi_test/src/test.c           ../../../src/spi_test/test.c
+file link -symbolic ./workspace/spi_test/src/fpga.h           ../../../src/fpga.h
 file delete -force  ./workspace/spi_test/src/lscript.ld
-file link -symbolic ./workspace/spi_test/src/lscript.ld           ../../../src/spi_test/lscript.ld
+file link -symbolic ./workspace/spi_test/src/lscript.ld       ../../../src/spi_test/lscript.ld
 
 #platform create -name "standalone_plat" -hw $hw -proc $proc -os standalone
 #app create -name hello1 -platform standalone_plat -domain standalone_domain -template "Empty Application(C)"

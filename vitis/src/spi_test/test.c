@@ -1,6 +1,7 @@
 #include "xil_printf.h"
 #include "xparameters.h"
 #include "fpga.h"
+#include "lps22hh.h"
 #include "xspips.h"
 #include "xspips_hw.h"
 
@@ -55,6 +56,9 @@ int spi_scan (uint32_t* spiptr, uint8_t* wdata, uint8_t* rdata, int n) {
 int main()
 {
 
+    int rcount;
+    uint32_t rval;
+
     xil_printf("Hello World\n\r");
     
     uint8_t wdata[100], rdata[100];
@@ -71,28 +75,37 @@ int main()
     
     spi_init(spiptr);
 
-    uint32_t rval;
-    int rcount;
+	// Initialize the lps22hh
+	wdata[0] = IF_CTRL; wdata[1] = 0x03;
+    rcount = spi_scan(spiptr, wdata, rdata, 2);
+	wdata[0] = CTRL_REG1; wdata[1] = 0x00;
+    rcount = spi_scan(spiptr, wdata, rdata, 2);
+	wdata[0] = CTRL_REG2; wdata[1] = 0x10;
+    rcount = spi_scan(spiptr, wdata, rdata, 2);
+	wdata[0] = CTRL_REG3; wdata[1] = 0x00;
+    rcount = spi_scan(spiptr, wdata, rdata, 2);
+	wdata[0] = FIFO_CTRL; wdata[1] = 0x00;
+    rcount = spi_scan(spiptr, wdata, rdata, 2);
+	wdata[0] = FIFO_WTM; wdata[1] = 0x00;
+    rcount = spi_scan(spiptr, wdata, rdata, 2);
+
+    // read the lps22hh ID register
+	wdata[0] = WHO_AM_I | READ_MASK; wdata[1] = 0x00;
+    rcount = spi_scan(spiptr, wdata, rdata, 2);
+	xil_printf("whoami = 0x%02x\n\r", rdata[1]);
 
 	// infinite loop
 	uint32_t whilecount = 0;
 	while(1) {
 
-		wdata[0] = 0x8f; wdata[1] = 0x00;
-	    rcount = spi_scan(spiptr, wdata, rdata, 2);
-
-		//rval = spiptr[XSPIPS_SR_OFFSET/4];
-		//xil_printf("XSPIPS_SR_OFFSET = 0x%08x\n\r", rval);
-		xil_printf("whilecount = %d; rcount = %d\n\r", whilecount, rcount);
-		xil_printf("whoami = 0x%02x\n\r", rdata[1]);
-
-		wdata[0] = 0xab; wdata[1] = 0x00; wdata[2] = 0x00;
-	    rcount = spi_scan(spiptr, wdata, rdata, 3);
+		wdata[0] = TEMP_OUT_L | READ_MASK; wdata[1] = 0x00; wdata[2] = 0x00;
+	    rcount = spi_scan(spiptr, wdata, rdata, 3); // get temp low and temp high in the same scan
 		xil_printf("rcount = %d, tempC = 0x%02x 0x%02x\n\r", rcount, rdata[1], rdata[2]);
 
 		regptr[FPGA_RGB_LED] = whilecount; // flash the LED
 		for(int i=0; i<100000000; i++);
 		whilecount++;
+
 	}
     
     return 0;

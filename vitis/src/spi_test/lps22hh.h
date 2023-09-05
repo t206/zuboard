@@ -25,9 +25,13 @@
 #define PRESSURE_OUT_XL 0x28   // R 28 Output
 #define PRESSURE_OUT_L  0x29   // R 29 Output Pressure output registers
 #define PRESSURE_OUT_H  0x2A   // R 2A Output
-#define TEMP_OUT_L      0x2B   // R 2B Output
 // Temperature output registers
-#define TEMP_OUT_H              0x2C // R 2C Output
+#define TEMP_OUT_L      0x2B   // R 2B Output
+#define TEMP_OUT_H      0x2C   // R 2C Output
+// pressure output registers
 #define FIFO_DATA_OUT_PRESS_XL  0x78 // R 78 Output
 #define FIFO_DATA_OUT_PRESS_L   0x79 // R 79 Output FIFO pressure output registers
 #define FIFO_DATA_OUT_PRESS_H   0x7A // R 7A Output
+
+#define READ_MASK				0x80 //
+
