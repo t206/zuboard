@@ -96,11 +96,17 @@ int main()
 
 	// infinite loop
 	uint32_t whilecount = 0;
+	int16_t tempval;
 	while(1) {
+
+		wdata[0] = CTRL_REG2; wdata[1] = 0x11; // trigger one-shot conversion
+	    rcount = spi_scan(spiptr, wdata, rdata, 2);
 
 		wdata[0] = TEMP_OUT_L | READ_MASK; wdata[1] = 0x00; wdata[2] = 0x00;
 	    rcount = spi_scan(spiptr, wdata, rdata, 3); // get temp low and temp high in the same scan
+	    tempval = (rdata[2] << 8) | (rdata[1] <<0);
 		xil_printf("rcount = %d, tempC = 0x%02x 0x%02x\n\r", rcount, rdata[1], rdata[2]);
+		xil_printf("tempval = 0x%04x = %d.%02d\n\r", tempval, tempval/100, tempval%100);
 
 		regptr[FPGA_RGB_LED] = whilecount; // flash the LED
 		for(int i=0; i<100000000; i++);
