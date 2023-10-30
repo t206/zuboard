@@ -20,6 +20,7 @@ petalinux-config -c kernel --silentconfig
 
 petalinux-build
 
+- If petalinux-build throws an error just rerun the above three commands. That usually fixes things.
 
 petalinux-package --force --boot --u-boot --kernel --offset 0xF40000 --fpga ../../implement/results/top.bit
 
