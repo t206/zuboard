@@ -32,7 +32,7 @@ cp images/linux/boot.scr /media/pedro/BOOT/
 cd ..
 
 
-## Preparing the root filesystem
+## Installing a Linaro root filesystem
 
 wget https://releases.linaro.org/debian/images/developer-arm64/latest/linaro-stretch-developer-20180416-89.tar.gz
 
@@ -41,7 +41,13 @@ sudo tar --preserve-permissions -zxvf linaro-stretch-developer-20180416-89.tar.g
 sudo cp --recursive --preserve binary/* /media/pedro/rootfs/; sync
 
 
+## Installing a Debian root filesystem using debootstrap
 
+sudo debootstrap --arch=arm64 buster binary/ http://ftp.debian.org/debian/
+
+Then follow instructions here to confgure the root file system: https://akhileshmoghe.github.io/_post/linux/debian_minimal_rootfs
+
+sudo cp --recursive --preserve binary/* /media/pedro/rootfs/; sync
 
 
 ############### Post Boot Stuff ##############################3
