@@ -45,9 +45,36 @@ sudo cp --recursive --preserve binary/* /media/pedro/rootfs/; sync
 
 sudo debootstrap --arch=arm64 buster binary/ http://ftp.debian.org/debian/
 
-Then follow instructions here to confgure the root file system: https://akhileshmoghe.github.io/_post/linux/debian_minimal_rootfs
+    Then follow instructions here to confgure the root file system: https://akhileshmoghe.github.io/_post/linux/debian_minimal_rootfs
+sudo apt install qemu-user-static
+sudo apt install debootstrap
+sudo debootstrap --arch=arm64 --foreign buster debianMinimalRootFS
+sudo cp /usr/bin/qemu-aarch64-static /debianMinimalRootFS/usr/bin/
+sudo cp /etc/resolv.conf /debianMinimalRootFS/etc/resolv.conf
+sudo chroot /debianMinimalRootFS
+export LANG=C
+/debootstrap/debootstrap --second-stage
+    Add these sources to /etc/apt/sources.list
+deb http://deb.debian.org/debian buster main contrib non-free
+deb-src http://deb.debian.org/debian buster main contrib non-free
+deb http://security.debian.org/ buster/updates main contrib non-free
+deb-src http://security.debian.org/ buster/updates main contrib non-free
+deb http://deb.debian.org/debian buster-updates main contrib non-free
+deb-src http://deb.debian.org/debian buster-updates main contrib non-free
+apt update
+apt install locales dialog
+dpkg-reconfigure locales
+apt install vim openssh-server ntpdate sudo ifupdown net-tools udev iputils-ping wget dosfstools unzip binutils libatomic1
+passwd
+adduser myuser
+usermod -aG sudo myuser
+usermod --shell /bin/bash <user-name>
+    Add to /etc/network/interfaces
+auto eth0
+iface eth0 inet dhcp
+exit
 
-sudo cp --recursive --preserve binary/* /media/pedro/rootfs/; sync
+sudo cp --recursive --preserve ./debianMinimalRootFS/* /media/pedro/rootfs/; sync
 
 
 ############### Post Boot Stuff ##############################3
@@ -79,4 +106,4 @@ apt install subversion
 adduser myuser
 usermod -aG sudo myuser
 
-
+passwd
