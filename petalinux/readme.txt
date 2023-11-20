@@ -18,6 +18,16 @@ petalinux-build -c bootloader -x distclean
 
 petalinux-config -c kernel --silentconfig
 
+Do this instead to use the pcie for an nvme drive
+
+petalinux-config -c kernel
+
+    * Drivers -> nvme -> nvme as block device.
+    * Device Drivers -> Phy Subsystem -> PHY Core.
+    * Device Drivers -> Phy Subsystem -> Xilinx ZynqMP PHY driver.
+    * save and exit
+
+
 petalinux-build
 
 - If petalinux-build throws an error just rerun the above three commands. That usually fixes things.
@@ -49,9 +59,9 @@ sudo debootstrap --arch=arm64 buster binary/ http://ftp.debian.org/debian/
 sudo apt install qemu-user-static
 sudo apt install debootstrap
 sudo debootstrap --arch=arm64 --foreign buster debianMinimalRootFS
-sudo cp /usr/bin/qemu-aarch64-static /debianMinimalRootFS/usr/bin/
-sudo cp /etc/resolv.conf /debianMinimalRootFS/etc/resolv.conf
-sudo chroot /debianMinimalRootFS
+sudo cp /usr/bin/qemu-aarch64-static ./debianMinimalRootFS/usr/bin/
+sudo cp /etc/resolv.conf ./debianMinimalRootFS/etc/resolv.conf
+sudo chroot ./debianMinimalRootFS
 export LANG=C
 /debootstrap/debootstrap --second-stage
     Add these sources to /etc/apt/sources.list
@@ -72,6 +82,7 @@ usermod --shell /bin/bash <user-name>
     Add to /etc/network/interfaces
 auto eth0
 iface eth0 inet dhcp
+
 exit
 
 sudo cp --recursive --preserve ./debianMinimalRootFS/* /media/pedro/rootfs/; sync

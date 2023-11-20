@@ -21,3 +21,8 @@ set_property PACKAGE_PIN B4       [get_ports led2_red]
 set_property PACKAGE_PIN A2       [get_ports led2_green]
 set_property PACKAGE_PIN F4       [get_ports led2_blue]
 
+set_property IOSTANDARD LVCMOS18    [get_ports {temp_i2c_*}]
+set_property PACKAGE_PIN A6         [get_ports temp_i2c_scl] 
+set_property PACKAGE_PIN B7         [get_ports temp_i2c_sda] 
+
+
