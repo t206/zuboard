@@ -61,6 +61,7 @@ Here are the most important commands listed for convenience.
 
     sudo apt install qemu-user-static
     sudo apt install debootstrap
+
     sudo debootstrap --arch=arm64 --foreign buster debianMinimalRootFS
     sudo cp /usr/bin/qemu-aarch64-static ./debianMinimalRootFS/usr/bin/
     sudo cp /etc/resolv.conf ./debianMinimalRootFS/etc/resolv.conf
@@ -77,6 +78,8 @@ Add these sources to /etc/apt/sources.list
     deb-src http://security.debian.org/ buster/updates main contrib non-free
     deb http://deb.debian.org/debian buster-updates main contrib non-free
     deb-src http://deb.debian.org/debian buster-updates main contrib non-free
+
+Do some more file system configuration.
 
     apt update
     apt install locales dialog
