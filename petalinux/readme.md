@@ -95,9 +95,12 @@ Add to /etc/network/interfaces
     auto eth0
     iface eth0 inet dhcp
 
-exit
+Exit chroot.
 
-sudo cp --recursive --preserve ./debianMinimalRootFS/* /media/pedro/rootfs/; sync
+    exit
+Write filesystem to SD card.
+
+    sudo cp --recursive --preserve ./debianMinimalRootFS/* /media/pedro/rootfs/; sync
 
 
 ############### Post Boot Stuff ##############################3
