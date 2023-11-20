@@ -57,6 +57,8 @@ sudo cp --recursive --preserve binary/* /media/pedro/rootfs/; sync
 ## Installing a Debian root filesystem using debootstrap
 Then follow instructions here to confgure the root file system: https://akhileshmoghe.github.io/_post/linux/debian_minimal_rootfs
 
+Here are the most important commands listed for convenience. 
+
     sudo apt install qemu-user-static
     sudo apt install debootstrap
     sudo debootstrap --arch=arm64 --foreign buster debianMinimalRootFS
