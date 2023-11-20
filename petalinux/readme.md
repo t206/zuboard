@@ -1,4 +1,6 @@
+# Linux installation on the Avnet ZU Board.
 
+## Petalinux build
 petalinux-create --force --type project --template zynqMP --name proj1
 
 cp system-user.dtsi proj1/project-spec/meta-user/recipes-bsp/device-tree/files/
@@ -42,7 +44,8 @@ cp images/linux/boot.scr /media/pedro/BOOT/
 cd ..
 
 
-## Installing a Linaro root filesystem
+## Installing a Linaro root filesystem from downloaded filesystem image.
+This does not work very well.  It is much better to use the debootstrap flow below.
 
 wget https://releases.linaro.org/debian/images/developer-arm64/latest/linaro-stretch-developer-20180416-89.tar.gz
 
@@ -52,36 +55,38 @@ sudo cp --recursive --preserve binary/* /media/pedro/rootfs/; sync
 
 
 ## Installing a Debian root filesystem using debootstrap
+Then follow instructions here to confgure the root file system: https://akhileshmoghe.github.io/_post/linux/debian_minimal_rootfs
 
-sudo debootstrap --arch=arm64 buster binary/ http://ftp.debian.org/debian/
+    sudo apt install qemu-user-static
+    sudo apt install debootstrap
+    sudo debootstrap --arch=arm64 --foreign buster debianMinimalRootFS
+    sudo cp /usr/bin/qemu-aarch64-static ./debianMinimalRootFS/usr/bin/
+    sudo cp /etc/resolv.conf ./debianMinimalRootFS/etc/resolv.conf
+    sudo chroot ./debianMinimalRootFS
+    export LANG=C
 
-    Then follow instructions here to confgure the root file system: https://akhileshmoghe.github.io/_post/linux/debian_minimal_rootfs
-sudo apt install qemu-user-static
-sudo apt install debootstrap
-sudo debootstrap --arch=arm64 --foreign buster debianMinimalRootFS
-sudo cp /usr/bin/qemu-aarch64-static ./debianMinimalRootFS/usr/bin/
-sudo cp /etc/resolv.conf ./debianMinimalRootFS/etc/resolv.conf
-sudo chroot ./debianMinimalRootFS
-export LANG=C
-/debootstrap/debootstrap --second-stage
-    Add these sources to /etc/apt/sources.list
+    /debootstrap/debootstrap --second-stage
+
+Add these sources to /etc/apt/sources.list
 deb http://deb.debian.org/debian buster main contrib non-free
 deb-src http://deb.debian.org/debian buster main contrib non-free
 deb http://security.debian.org/ buster/updates main contrib non-free
 deb-src http://security.debian.org/ buster/updates main contrib non-free
 deb http://deb.debian.org/debian buster-updates main contrib non-free
 deb-src http://deb.debian.org/debian buster-updates main contrib non-free
-apt update
-apt install locales dialog
-dpkg-reconfigure locales
-apt install vim openssh-server ntpdate sudo ifupdown net-tools udev iputils-ping wget dosfstools unzip binutils libatomic1
-passwd
-adduser myuser
-usermod -aG sudo myuser
-usermod --shell /bin/bash <user-name>
-    Add to /etc/network/interfaces
-auto eth0
-iface eth0 inet dhcp
+
+    apt update
+    apt install locales dialog
+    dpkg-reconfigure locales
+    apt install vim openssh-server ntpdate sudo ifupdown net-tools udev iputils-ping wget dosfstools unzip binutils libatomic1
+    passwd
+    adduser myuser
+    usermod -aG sudo myuser
+    usermod --shell /bin/bash <user-name>
+
+Add to /etc/network/interfaces
+        auto eth0
+        iface eth0 inet dhcp
 
 exit
 
