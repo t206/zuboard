@@ -70,6 +70,7 @@ Here are the most important commands listed for convenience.
     /debootstrap/debootstrap --second-stage
 
 Add these sources to /etc/apt/sources.list
+
     deb http://deb.debian.org/debian buster main contrib non-free
     deb-src http://deb.debian.org/debian buster main contrib non-free
     deb http://security.debian.org/ buster/updates main contrib non-free
