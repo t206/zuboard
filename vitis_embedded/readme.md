@@ -16,5 +16,12 @@ client.set_workspace("./workspace")
 platform = client.create_platform_component(name = "standalone_plat", hw = "../implement/results/top.xsa", cpu = "psu_cortexa53_0", os = "standalone", domain_name = "standalone_a53")
 
 
+## Subsequent Sessions
+
+vitis -s setup.py
+
+vitis --workspace ./workspace
+
+
 
 
