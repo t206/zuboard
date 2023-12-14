@@ -113,6 +113,11 @@ module top (
     IOBUF temp_i2c_scl_iobuf (.I(temp_i2c_scl_o), .IO(temp_i2c_scl), .O(temp_i2c_scl_i), .T(temp_i2c_scl_t));
     IOBUF temp_i2c_sda_iobuf (.I(temp_i2c_sda_o), .IO(temp_i2c_sda), .O(temp_i2c_sda_i), .T(temp_i2c_sda_t));
 
+    logic[27:0] led_count;
+    always_ff @(posedge axi_aclk) led_count <= led_count + 1;
+    assign led1_red   = led_count[27];
+    assign led1_green = led_count[26];
+    assign led1_blue  = led_count[25];
     
     
     // This register file gives software contol over unit under test (UUT).
@@ -123,9 +128,9 @@ module top (
     assign slv_read[1] = 32'h76543210;
     
     
-    assign led1_red   = slv_reg[2][0];
-    assign led1_green = slv_reg[2][1];
-    assign led1_blue  = slv_reg[2][2];
+    //assign led1_red   = slv_reg[2][0];
+    //assign led1_green = slv_reg[2][1];
+    //assign led1_blue  = slv_reg[2][2];
     assign led2_red   = slv_reg[2][4];
     assign led2_green = slv_reg[2][5];
     assign led2_blue  = slv_reg[2][6];

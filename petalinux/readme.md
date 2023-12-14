@@ -79,7 +79,7 @@ Add these sources to /etc/apt/sources.list
     deb http://deb.debian.org/debian buster-updates main contrib non-free
     deb-src http://deb.debian.org/debian buster-updates main contrib non-free
 
-Do some more file system configuration.
+    Do some more file system configuration.
 
     apt update
     apt install locales dialog
@@ -90,20 +90,18 @@ Do some more file system configuration.
     usermod -aG sudo myuser
     usermod --shell /bin/bash <user-name>
 
-Add to /etc/network/interfaces
+    Add to /etc/network/interfaces
 
     auto eth0
     iface eth0 inet dhcp
 
-Exit chroot.
+    Exit chroot.
 
-    exit
-Write filesystem to SD card.
+exit
+    Write filesystem to SD card.
 
-    sudo cp --recursive --preserve ./debianMinimalRootFS/* /media/pedro/rootfs/; sync
+sudo cp --recursive --preserve ./debianMinimalRootFS/* /media/pedro/rootfs/; sync
 
-
-############### Post Boot Stuff ##############################3
 
 ## Run-time FPGA Configuration
 
@@ -133,3 +131,4 @@ adduser myuser
 usermod -aG sudo myuser
 
 passwd
+
