@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="1,000.001 ns"></ZoomEndTime>
+      <ZoomEndTime time="166.590 ns"></ZoomEndTime>
       <Cursor1Time time="0.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="116"></ValueColumnWidth>
+      <ValueColumnWidth column_width="111"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="27" />
+   <WVObjectSize size="28" />
    <wvobject type="logic" fp_name="/zmod_test_tb/base_clk">
       <obj_property name="ElementShortName">base_clk</obj_property>
       <obj_property name="ObjectShortName">base_clk</obj_property>
@@ -121,13 +121,17 @@
       <obj_property name="ObjectShortName">shift_data[3:0][15:0]</obj_property>
       <obj_property name="isExpanded"></obj_property>
    </wvobject>
-   <wvobject type="array" fp_name="/zmod_test_tb/uut/fifo_data">
-      <obj_property name="ElementShortName">fifo_data[3:0][7:0]</obj_property>
-      <obj_property name="ObjectShortName">fifo_data[3:0][7:0]</obj_property>
-      <obj_property name="isExpanded"></obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="/zmod_test_tb/uut/fifo_dout">
       <obj_property name="ElementShortName">fifo_dout[31:0]</obj_property>
       <obj_property name="ObjectShortName">fifo_dout[31:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/zmod_test_tb/uut/shift_dout">
+      <obj_property name="ElementShortName">shift_dout[3:0][7:0]</obj_property>
+      <obj_property name="ObjectShortName">shift_dout[3:0][7:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/zmod_test_tb/uut/out_word">
+      <obj_property name="ElementShortName">out_word[31:0]</obj_property>
+      <obj_property name="ObjectShortName">out_word[31:0]</obj_property>
    </wvobject>
 </wave_config>

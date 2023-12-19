@@ -1,4 +1,8 @@
-
+// This little module excercises a high-speed lvds data link implemented on a 
+// little zmod module plugged into J2 of the zuboard.  The idea is to see how fast 
+// we can push data over that connector using a low-cost pcb.
+// The channel consists of four lvds lanes plus source-synchronous clock. Three bits are used as
+// data and one as a framing sync word. 
 module zmod_test (
     input   logic           base_clk,  // base clock
     output  logic           clk_out_p, clk_out_n,
@@ -12,23 +16,24 @@ module zmod_test (
     zmod_clk_wiz clk_wiz_inst (.clk_in1(base_clk), .clkout100(clk), .clkout400(clkx4), .locked(locked));    
 
     // pattern generation
-    logic[31:0] tx_data=0, rx_data;
+    logic[31:0] tx_data=0;
     always_ff @(posedge clk) begin
         tx_data[31:24] <= 8'b0000_0001;
         tx_data[23: 0] <= tx_data[23:0] + 1;
     end
     
-    // generate tx clock
+    // transmit the tx clock
     OSERDESE3 #(.DATA_WIDTH(8), .INIT(1'b0), .IS_CLKDIV_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
     OSERDESE3_clock (.CLK(clkx4), .CLKDIV(clk), .D(8'b10101010), .RST(1'b0), .OQ(clk_out), .T(1'b0), .T_OUT());
     OBUFDS OBUFDS_clk_out (.I(clk_out), .O(clk_out_p),  .OB(clk_out_n));   
     
-    // receive rx clock
+    // rx clocks
     logic rxdivclk, rxclk, rxlocked;
     zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout100(rxdivclk), .clkout400(rxclk), .locked(rxlocked));    
 
 
     logic[3:0] d_out, d_in;
+    logic[31:0] rx_data;
     generate for(genvar i=0; i<4; i++) begin
 
         // data serialization and transmission    
@@ -43,14 +48,19 @@ module zmod_test (
     
     end endgenerate
     
+    // cross back to the original clk with a little fifo
+    logic[31:0] fifo_dout;
+    zmod_fifo fifo_inst (.wr_clk(rxdivclk), .rd_clk(clk), .din(rx_data), .wr_en(1'b1), .rd_en(1'b1), .dout(fifo_dout), .full(), .empty());    
+
     
     // rotate the bits to get the right framing
     logic[3:0][15:0] shift_data;
-    logic[3:0][7:0] fifo_data; 
+    logic[3:0][7:0] shift_dout; 
     logic[2:0] shift;
-    always_ff @(posedge rxdivclk) begin
+    always_ff @(posedge clk) begin
      
-        case (rx_data[31:24])
+        // determine the needed shift
+        case (fifo_dout[31:24])
             8'b0000_0001: shift <= 0;
             8'b0000_0010: shift <= 1;
             8'b0000_0100: shift <= 2;
@@ -62,23 +72,26 @@ module zmod_test (
             default:      shift <= 0;
         endcase
 
-        shift_data[3] <= {shift_data[3][7:0], rx_data[31:24]};
-        shift_data[2] <= {shift_data[2][7:0], rx_data[23:16]};
-        shift_data[1] <= {shift_data[1][7:0], rx_data[15: 8]};
-        shift_data[0] <= {shift_data[0][7:0], rx_data[ 7: 0]}; 
-        fifo_data[3] <= shift_data[3] >> shift;  
-        fifo_data[2] <= shift_data[2] >> shift;  
-        fifo_data[1] <= shift_data[1] >> shift;  
-        fifo_data[0] <= shift_data[0] >> shift;  
+        // create 16 bit words of the last two bytes of each lane
+        shift_data[3] <= {shift_data[3][7:0], fifo_dout[31:24]};
+        shift_data[2] <= {shift_data[2][7:0], fifo_dout[23:16]};
+        shift_data[1] <= {shift_data[1][7:0], fifo_dout[15: 8]};
+        shift_data[0] <= {shift_data[0][7:0], fifo_dout[ 7: 0]}; 
+
+        // apply the shift
+        shift_dout[3] <= shift_data[3] >> shift;  
+        shift_dout[2] <= shift_data[2] >> shift;  
+        shift_dout[1] <= shift_data[1] >> shift;  
+        shift_dout[0] <= shift_data[0] >> shift;  
                                 
     end    
     
-    // cross back to the original clk with a little fifo
-    logic[31:0] fifo_dout;
-    zmod_fifo fifo_inst (.wr_clk(rxdivclk), .rd_clk(clk), .din(fifo_data), .wr_en(1'b1), .rd_en(1'b1), .dout(fifo_dout), .full(), .empty());    
-
+    // rename for convenience
+    logic[31:0] out_word;
+    assign out_word = shift_dout;
+    
     // debug
-    zmod_ila ila_inst (.clk(clk), .probe0({tx_data, fifo_dout})); // 64
+    zmod_ila ila_inst (.clk(clk), .probe0({tx_data, shift, out_word})); // 32+3+32=67
 
 endmodule
 
