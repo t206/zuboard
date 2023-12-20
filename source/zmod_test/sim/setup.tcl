@@ -8,8 +8,9 @@ set_property default_lib work [current_project]
 
 read_ip ../zmod_clk_wiz/zmod_clk_wiz.xci
 read_ip ../zmod_clk_in_wiz/zmod_clk_in_wiz.xci
-read_ip ../zmod_ila/zmod_ila.xci
 read_ip ../zmod_fifo/zmod_fifo.xci
+read_ip ../zmod_ila/zmod_ila.xci
+read_ip ../zmod_rx_ila/zmod_rx_ila.xci
 upgrade_ip -quiet  [get_ips *]
 generate_target {all} [get_ips *]
 

@@ -9,6 +9,10 @@ set_property target_language Verilog [current_project]
 set_property default_lib work [current_project]
 load_features ipintegrator
 
+read_ip ../source/zmod_test/zmod_clk_in_wiz/zmod_clk_in_wiz.xci
+read_ip ../source/zmod_test/zmod_clk_wiz/zmod_clk_wiz.xci
+read_ip ../source/zmod_test/zmod_fifo/zmod_fifo.xci
+read_ip ../source/zmod_test/zmod_ila/zmod_ila.xci
 read_ip ../source/spi_ila/spi_ila.xci
 upgrade_ip -quiet  [get_ips *]
 generate_target {all} [get_ips *]
@@ -17,6 +21,7 @@ source ../source/system.tcl
 generate_target {synthesis implementation} [get_files ./proj.srcs/sources_1/bd/system/system.bd]
 set_property synth_checkpoint_mode None    [get_files ./proj.srcs/sources_1/bd/system/system.bd]
 
+read_verilog -sv ../source/zmod_test/zmod_test.sv
 read_verilog -sv ../source/axi_regfile/axi_regfile_v1_0_S00_AXI.sv
 read_verilog -sv ../source/top.sv
 

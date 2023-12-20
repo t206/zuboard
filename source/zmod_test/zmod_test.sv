@@ -28,8 +28,8 @@ module zmod_test (
     OBUFDS OBUFDS_clk_out (.I(clk_out), .O(clk_out_p),  .OB(clk_out_n));   
     
     // rx clocks
-    logic rxdivclk, rxclk, rxlocked;
-    zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout100(rxdivclk), .clkout400(rxclk), .locked(rxlocked));    
+    logic rxdivclk, rxclk, rxclk_b, rxlocked;
+    zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout100(rxdivclk), .clkout400(rxclk), .clkout400_b(rxclk_b), .locked(rxlocked));    
 
 
     logic[3:0] d_out, d_in;
@@ -43,8 +43,8 @@ module zmod_test (
    
         // data reception and deserialization   
         IBUFDS IBUFDS_data (.I(d_in_p[i]), .IB(d_in_n[i]), .O(d_in[i]));        
-        ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("FALSE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
-        ISERDESE3_data (.RST(1'b0), .CLK(rxclk), .CLK_B(~clkx4), .CLKDIV(rxdivclk), .D(d_in[i]), .Q(rx_data[i*8 +: 8]), .FIFO_EMPTY(), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(1'b0), .FIFO_RD_EN(1'b0));  
+        ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("TRUE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
+        ISERDESE3_data (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk_b), .CLKDIV(rxdivclk), .D(d_in[i]), .Q(rx_data[i*8 +: 8]), .FIFO_EMPTY(), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(1'b0), .FIFO_RD_EN(1'b0));  
     
     end endgenerate
     
@@ -91,7 +91,8 @@ module zmod_test (
     assign out_word = shift_dout;
     
     // debug
-    zmod_ila ila_inst (.clk(clk), .probe0({tx_data, shift, out_word})); // 32+3+32=67
+    zmod_ila ila_inst (.clk(clk), .probe0({fifo_dout, shift, out_word})); // 32+3+32=67
+    zmod_rx_ila rx_ila_inst (.clk(rxdivclk), .probe0(rx_data)); // 32
 
 endmodule
 

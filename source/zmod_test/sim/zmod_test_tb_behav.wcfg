@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="166.590 ns"></ZoomEndTime>
+      <ZoomEndTime time="4,392.001 ns"></ZoomEndTime>
       <Cursor1Time time="0.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="111"></ValueColumnWidth>
+      <ValueColumnWidth column_width="106"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="28" />
+   <WVObjectSize size="27" />
    <wvobject type="logic" fp_name="/zmod_test_tb/base_clk">
       <obj_property name="ElementShortName">base_clk</obj_property>
       <obj_property name="ObjectShortName">base_clk</obj_property>
@@ -84,33 +84,183 @@
       <obj_property name="ElementShortName">d_out[3:0]</obj_property>
       <obj_property name="ObjectShortName">d_out[3:0]</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk_in_p">
-      <obj_property name="ElementShortName">clk_in_p</obj_property>
-      <obj_property name="ObjectShortName">clk_in_p</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk_in_n">
-      <obj_property name="ElementShortName">clk_in_n</obj_property>
-      <obj_property name="ObjectShortName">clk_in_n</obj_property>
-   </wvobject>
    <wvobject type="logic" fp_name="/zmod_test_tb/uut/rxclk">
       <obj_property name="ElementShortName">rxclk</obj_property>
       <obj_property name="ObjectShortName">rxclk</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/zmod_test_tb/uut/rxclk_b">
+      <obj_property name="ElementShortName">rxclk_b</obj_property>
+      <obj_property name="ObjectShortName">rxclk_b</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/zmod_test_tb/uut/rxdivclk">
       <obj_property name="ElementShortName">rxdivclk</obj_property>
       <obj_property name="ObjectShortName">rxdivclk</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/zmod_test_tb/uut/rxlocked">
       <obj_property name="ElementShortName">rxlocked</obj_property>
       <obj_property name="ObjectShortName">rxlocked</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/zmod_test_tb/uut/d_in">
       <obj_property name="ElementShortName">d_in[3:0]</obj_property>
       <obj_property name="ObjectShortName">d_in[3:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/zmod_test_tb/uut/rx_data">
       <obj_property name="ElementShortName">rx_data[31:0]</obj_property>
       <obj_property name="ObjectShortName">rx_data[31:0]</obj_property>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[31]">
+         <obj_property name="ElementShortName">[31]</obj_property>
+         <obj_property name="ObjectShortName">[31]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[30]">
+         <obj_property name="ElementShortName">[30]</obj_property>
+         <obj_property name="ObjectShortName">[30]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[29]">
+         <obj_property name="ElementShortName">[29]</obj_property>
+         <obj_property name="ObjectShortName">[29]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[28]">
+         <obj_property name="ElementShortName">[28]</obj_property>
+         <obj_property name="ObjectShortName">[28]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[27]">
+         <obj_property name="ElementShortName">[27]</obj_property>
+         <obj_property name="ObjectShortName">[27]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[26]">
+         <obj_property name="ElementShortName">[26]</obj_property>
+         <obj_property name="ObjectShortName">[26]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[25]">
+         <obj_property name="ElementShortName">[25]</obj_property>
+         <obj_property name="ObjectShortName">[25]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[24]">
+         <obj_property name="ElementShortName">[24]</obj_property>
+         <obj_property name="ObjectShortName">[24]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[23]">
+         <obj_property name="ElementShortName">[23]</obj_property>
+         <obj_property name="ObjectShortName">[23]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[22]">
+         <obj_property name="ElementShortName">[22]</obj_property>
+         <obj_property name="ObjectShortName">[22]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[21]">
+         <obj_property name="ElementShortName">[21]</obj_property>
+         <obj_property name="ObjectShortName">[21]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[20]">
+         <obj_property name="ElementShortName">[20]</obj_property>
+         <obj_property name="ObjectShortName">[20]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[19]">
+         <obj_property name="ElementShortName">[19]</obj_property>
+         <obj_property name="ObjectShortName">[19]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[18]">
+         <obj_property name="ElementShortName">[18]</obj_property>
+         <obj_property name="ObjectShortName">[18]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[17]">
+         <obj_property name="ElementShortName">[17]</obj_property>
+         <obj_property name="ObjectShortName">[17]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[16]">
+         <obj_property name="ElementShortName">[16]</obj_property>
+         <obj_property name="ObjectShortName">[16]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[15]">
+         <obj_property name="ElementShortName">[15]</obj_property>
+         <obj_property name="ObjectShortName">[15]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[14]">
+         <obj_property name="ElementShortName">[14]</obj_property>
+         <obj_property name="ObjectShortName">[14]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[13]">
+         <obj_property name="ElementShortName">[13]</obj_property>
+         <obj_property name="ObjectShortName">[13]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[12]">
+         <obj_property name="ElementShortName">[12]</obj_property>
+         <obj_property name="ObjectShortName">[12]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[11]">
+         <obj_property name="ElementShortName">[11]</obj_property>
+         <obj_property name="ObjectShortName">[11]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[10]">
+         <obj_property name="ElementShortName">[10]</obj_property>
+         <obj_property name="ObjectShortName">[10]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[9]">
+         <obj_property name="ElementShortName">[9]</obj_property>
+         <obj_property name="ObjectShortName">[9]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[8]">
+         <obj_property name="ElementShortName">[8]</obj_property>
+         <obj_property name="ObjectShortName">[8]</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[7]">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">[7]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[6]">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">[6]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[5]">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">[5]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[4]">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">[4]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[3]">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">[3]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[2]">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">[2]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[1]">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/zmod_test_tb/uut/rx_data[0]">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">[0]</obj_property>
+         <obj_property name="CustomSignalColor">#FF00FF</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
    </wvobject>
    <wvobject type="array" fp_name="/zmod_test_tb/uut/shift">
       <obj_property name="ElementShortName">shift[2:0]</obj_property>

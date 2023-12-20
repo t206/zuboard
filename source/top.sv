@@ -13,7 +13,16 @@ module top (
     output  logic   led1_blue,
     output  logic   led2_red,
     output  logic   led2_green,
-    output  logic   led2_blue
+    output  logic   led2_blue,
+    //
+    output  logic           zmod_clk_out_p,
+    output  logic           zmod_clk_out_n,
+    output  logic[3:0]      zmod_d_out_p,
+    output  logic[3:0]      zmod_d_out_n,
+    input   logic           zmod_clk_in_p,
+    input   logic           zmod_clk_in_n,
+    input   logic[3:0]      zmod_d_in_p,
+    input   logic[3:0]      zmod_d_in_n
 );
 
     logic [39:0]    M00_AXI_araddr;
@@ -169,6 +178,21 @@ module top (
 		.S_AXI_WSTRB   (M00_AXI_wstrb  ),
 		.S_AXI_WVALID  (M00_AXI_wvalid )
 	);
+    
+    zmod_test zmod_test_inst (
+        .base_clk(axi_aclk), 
+        .clk_out_p(zmod_clk_out_p), .clk_out_n(zmod_clk_out_n), .d_out_p(zmod_d_out_p), .d_out_n(zmod_d_out_n), 
+        .clk_in_p(zmod_clk_in_p),   .clk_in_n(zmod_clk_in_n),   .d_in_p(zmod_d_in_p),   .d_in_n(zmod_d_in_n)
+    );
 
 endmodule
-    
+
+/*
+module zmod_test (
+    input   logic           base_clk,  // base clock
+    output  logic           clk_out_p, clk_out_n,
+    output  logic[3:0]      d_out_p, d_out_n,
+    input   logic           clk_in_p, clk_in_n,
+    input   logic[3:0]      d_in_p,  d_in_n
+);
+*/
