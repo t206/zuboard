@@ -4,11 +4,11 @@
 // The channel consists of four lvds lanes plus source-synchronous clock. Three bits are used as
 // data and one as a framing sync word. 
 module zmod_test (
-    input   logic           base_clk,  // base clock
+    input   logic           base_clk,  // input reference clock
     output  logic           clk_out_p, clk_out_n,
-    output  logic[3:0]      d_out_p, d_out_n,
-    input   logic           clk_in_p, clk_in_n,
-    input   logic[3:0]      d_in_p,  d_in_n
+    output  logic[3:0]      d_out_p,   d_out_n,
+    input   logic           clk_in_p,  clk_in_n,
+    input   logic[3:0]      d_in_p,    d_in_n
 );
 
     // clock synthesis
@@ -29,7 +29,8 @@ module zmod_test (
     
     // rx clocks
     logic rxdivclk, rxclk, rxclk_b, rxlocked;
-    zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout100(rxdivclk), .clkout400(rxclk), .clkout400_b(rxclk_b), .locked(rxlocked));    
+    zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout100(rxdivclk), .clkout400(rxclk), .locked(rxlocked));
+    //BUFGCE_DIV #(.BUFGCE_DIVIDE(4), .IS_CE_INVERTED(1'b0), .IS_CLR_INVERTED(1'b0), .IS_I_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS")) BUFGCE_DIV_rxclk (.I(rxclk), .O(rxdivclk), .CE(1'b1), .CLR(1'b0));    
 
 
     logic[3:0] d_out, d_in;
@@ -42,15 +43,12 @@ module zmod_test (
         OBUFDS OBUFDS_data (.I(d_out[i]), .O(d_out_p[i]),  .OB(d_out_n[i]));   
    
         // data reception and deserialization   
+        logic rx_fifo_empty;
         IBUFDS IBUFDS_data (.I(d_in_p[i]), .IB(d_in_n[i]), .O(d_in[i]));        
-        ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("TRUE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
-        ISERDESE3_data (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk_b), .CLKDIV(rxdivclk), .D(d_in[i]), .Q(rx_data[i*8 +: 8]), .FIFO_EMPTY(), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(1'b0), .FIFO_RD_EN(1'b0));  
+        ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("TRUE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b1), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
+        ISERDESE3_data (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk), .CLKDIV(rxdivclk), .D(d_in[i]), .Q(rx_data[i*8 +: 8]), .FIFO_EMPTY(rx_fifo_empty), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(clk), .FIFO_RD_EN(~rx_fifo_empty));  
     
-    end endgenerate
-    
-    // cross back to the original clk with a little fifo
-    logic[31:0] fifo_dout;
-    zmod_fifo fifo_inst (.wr_clk(rxdivclk), .rd_clk(clk), .din(rx_data), .wr_en(1'b1), .rd_en(1'b1), .dout(fifo_dout), .full(), .empty());    
+    end endgenerate  
 
     
     // rotate the bits to get the right framing
@@ -60,7 +58,7 @@ module zmod_test (
     always_ff @(posedge clk) begin
      
         // determine the needed shift
-        case (fifo_dout[31:24])
+        case (rx_data[31:24])
             8'b0000_0001: shift <= 0;
             8'b0000_0010: shift <= 1;
             8'b0000_0100: shift <= 2;
@@ -73,10 +71,10 @@ module zmod_test (
         endcase
 
         // create 16 bit words of the last two bytes of each lane
-        shift_data[3] <= {shift_data[3][7:0], fifo_dout[31:24]};
-        shift_data[2] <= {shift_data[2][7:0], fifo_dout[23:16]};
-        shift_data[1] <= {shift_data[1][7:0], fifo_dout[15: 8]};
-        shift_data[0] <= {shift_data[0][7:0], fifo_dout[ 7: 0]}; 
+        shift_data[3] <= {shift_data[3][7:0], rx_data[31:24]};
+        shift_data[2] <= {shift_data[2][7:0], rx_data[23:16]};
+        shift_data[1] <= {shift_data[1][7:0], rx_data[15: 8]};
+        shift_data[0] <= {shift_data[0][7:0], rx_data[ 7: 0]}; 
 
         // apply the shift
         shift_dout[3] <= shift_data[3] >> shift;  
@@ -91,15 +89,28 @@ module zmod_test (
     assign out_word = shift_dout;
     
     // debug
-    zmod_ila ila_inst (.clk(clk), .probe0({fifo_dout, shift, out_word})); // 32+3+32=67
-    zmod_rx_ila rx_ila_inst (.clk(rxdivclk), .probe0(rx_data)); // 32
+    zmod_ila ila_inst (.clk(clk), .probe0({rx_data, shift, out_word})); // 32+3+32=67
 
 endmodule
 
 
 
 /*
-
+   BUFGCE_DIV #(
+      .BUFGCE_DIVIDE(1),              // 1-8
+      // Programmable Inversion Attributes: Specifies built-in programmable inversion on specific pins
+      .IS_CE_INVERTED(1'b0),          // Optional inversion for CE
+      .IS_CLR_INVERTED(1'b0),         // Optional inversion for CLR
+      .IS_I_INVERTED(1'b0),           // Optional inversion for I
+      .SIM_DEVICE("ULTRASCALE_PLUS")  // ULTRASCALE, ULTRASCALE_PLUS
+   )
+   BUFGCE_DIV_inst (
+      .O(O),     // 1-bit output: Buffer
+      .CE(CE),   // 1-bit input: Buffer enable
+      .CLR(CLR), // 1-bit input: Asynchronous clear
+      .I(I)      // 1-bit input: Buffer
+   );
+   
 zmod_fifo your_instance_name (
   .wr_clk(wr_clk),  // input wire wr_clk
   .rd_clk(rd_clk),  // input wire rd_clk

@@ -111,12 +111,12 @@ module top (
     IOBUF SPI_1_sck_iobuf (.I(SPI_1_sck_o), .IO(spi_1_sck),  .O(SPI_1_sck_i), .T(SPI_1_sck_t));
     IOBUF SPI_1_ss_iobuf  (.I(SPI_1_ss_o),  .IO(spi_1_csn),  .O(SPI_1_ss_i),  .T(SPI_1_ss_t));
     
-    spi_ila spi_ila_inst (.clk(axi_aclk), .probe0({
-        SPI_1_io0_i, SPI_1_io0_o, SPI_1_io0_t,
-        SPI_1_io1_i, SPI_1_io1_o, SPI_1_io1_t,
-        SPI_1_sck_i, SPI_1_sck_o, SPI_1_sck_t,
-        SPI_1_ss_i,  SPI_1_ss_o,  SPI_1_ss_t
-    }));
+//    spi_ila spi_ila_inst (.clk(axi_aclk), .probe0({
+//        SPI_1_io0_i, SPI_1_io0_o, SPI_1_io0_t,
+//        SPI_1_io1_i, SPI_1_io1_o, SPI_1_io1_t,
+//        SPI_1_sck_i, SPI_1_sck_o, SPI_1_sck_t,
+//        SPI_1_ss_i,  SPI_1_ss_o,  SPI_1_ss_t
+//    }));
     
 
     IOBUF temp_i2c_scl_iobuf (.I(temp_i2c_scl_o), .IO(temp_i2c_scl), .O(temp_i2c_scl_i), .T(temp_i2c_scl_t));

@@ -11,7 +11,7 @@ load_features ipintegrator
 
 read_ip ../source/zmod_test/zmod_clk_in_wiz/zmod_clk_in_wiz.xci
 read_ip ../source/zmod_test/zmod_clk_wiz/zmod_clk_wiz.xci
-read_ip ../source/zmod_test/zmod_fifo/zmod_fifo.xci
+#read_ip ../source/zmod_test/zmod_fifo/zmod_fifo.xci
 read_ip ../source/zmod_test/zmod_ila/zmod_ila.xci
 read_ip ../source/spi_ila/spi_ila.xci
 upgrade_ip -quiet  [get_ips *]
