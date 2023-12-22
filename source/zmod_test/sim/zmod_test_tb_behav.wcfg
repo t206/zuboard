@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="248.630 ns"></ZoomEndTime>
+      <ZoomEndTime time="200.332 ns"></ZoomEndTime>
       <Cursor1Time time="0.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="91"></ValueColumnWidth>
+      <ValueColumnWidth column_width="86"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="26" />
+   <WVObjectSize size="27" />
    <wvobject type="logic" fp_name="/zmod_test_tb/base_clk">
       <obj_property name="ElementShortName">base_clk</obj_property>
       <obj_property name="ObjectShortName">base_clk</obj_property>
@@ -64,6 +64,14 @@
       <obj_property name="label">uut</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
+   <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk_in_p">
+      <obj_property name="ElementShortName">clk_in_p</obj_property>
+      <obj_property name="ObjectShortName">clk_in_p</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk_in_n">
+      <obj_property name="ElementShortName">clk_in_n</obj_property>
+      <obj_property name="ObjectShortName">clk_in_n</obj_property>
+   </wvobject>
    <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -87,12 +95,6 @@
    <wvobject type="logic" fp_name="/zmod_test_tb/uut/rxclk">
       <obj_property name="ElementShortName">rxclk</obj_property>
       <obj_property name="ObjectShortName">rxclk</obj_property>
-      <obj_property name="CustomSignalColor">#FF00FF</obj_property>
-      <obj_property name="UseCustomSignalColor">true</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/zmod_test_tb/uut/rxclk_b">
-      <obj_property name="ElementShortName">rxclk_b</obj_property>
-      <obj_property name="ObjectShortName">rxclk_b</obj_property>
       <obj_property name="CustomSignalColor">#FF00FF</obj_property>
       <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>

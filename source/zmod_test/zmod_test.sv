@@ -13,7 +13,7 @@ module zmod_test (
 
     // clock synthesis
     logic clk, clkx4, locked;
-    zmod_clk_wiz clk_wiz_inst (.clk_in1(base_clk), .clkout100(clk), .clkout400(clkx4), .locked(locked));    
+    zmod_clk_wiz clk_wiz_inst (.clk_in1(base_clk), .clkout(clk), .clkoutx4(clkx4), .locked(locked));    
 
     // pattern generation
     logic[31:0] tx_data=0;
@@ -28,8 +28,8 @@ module zmod_test (
     OBUFDS OBUFDS_clk_out (.I(clk_out), .O(clk_out_p),  .OB(clk_out_n));   
     
     // rx clocks
-    logic rxdivclk, rxclk, rxclk_b, rxlocked;
-    zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout100(rxdivclk), .clkout400(rxclk), .locked(rxlocked));
+    logic rxdivclk, rxclk, rxlocked;
+    zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout(rxclk), .divclkout(rxdivclk), .locked(rxlocked));
     //BUFGCE_DIV #(.BUFGCE_DIVIDE(4), .IS_CE_INVERTED(1'b0), .IS_CLR_INVERTED(1'b0), .IS_I_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS")) BUFGCE_DIV_rxclk (.I(rxclk), .O(rxdivclk), .CE(1'b1), .CLR(1'b0));    
 
 
@@ -45,7 +45,7 @@ module zmod_test (
         // data reception and deserialization   
         logic rx_fifo_empty;
         IBUFDS IBUFDS_data (.I(d_in_p[i]), .IB(d_in_n[i]), .O(d_in[i]));        
-        ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("TRUE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b1), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
+        ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("FALSE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b1), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
         ISERDESE3_data (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk), .CLKDIV(rxdivclk), .D(d_in[i]), .Q(rx_data[i*8 +: 8]), .FIFO_EMPTY(rx_fifo_empty), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(clk), .FIFO_RD_EN(~rx_fifo_empty));  
     
     end endgenerate  
@@ -55,7 +55,7 @@ module zmod_test (
     logic[3:0][15:0] shift_data;
     logic[3:0][7:0] shift_dout; 
     logic[2:0] shift;
-    always_ff @(posedge clk) begin
+    always_ff @(posedge rxdivclk) begin
      
         // determine the needed shift
         case (rx_data[31:24])
@@ -89,7 +89,7 @@ module zmod_test (
     assign out_word = shift_dout;
     
     // debug
-    zmod_ila ila_inst (.clk(clk), .probe0({rx_data, shift, out_word})); // 32+3+32=67
+    zmod_ila ila_inst (.clk(rxdivclk), .probe0({rx_data, shift, out_word})); // 32+3+32=67
 
 endmodule
 
