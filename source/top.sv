@@ -101,22 +101,11 @@ module top (
         .SPI_1_ss_t(SPI_1_ss_t)        
     );
     
-//    assign SPI_1_io0_i = SPI_1_io0_o;
-//    assign SPI_1_io1_i = SPI_1_io0_o;
-//    assign SPI_1_sck_i = SPI_1_sck_o;
-//    assign SPI_1_ss_i  = SPI_1_ss_o;
 
     IOBUF SPI_1_io0_iobuf (.I(SPI_1_io0_o), .IO(spi_1_mosi), .O(SPI_1_io0_i), .T(SPI_1_io0_t));
     IOBUF SPI_1_io1_iobuf (.I(SPI_1_io1_o), .IO(spi_1_miso), .O(SPI_1_io1_i), .T(SPI_1_io1_t));
     IOBUF SPI_1_sck_iobuf (.I(SPI_1_sck_o), .IO(spi_1_sck),  .O(SPI_1_sck_i), .T(SPI_1_sck_t));
     IOBUF SPI_1_ss_iobuf  (.I(SPI_1_ss_o),  .IO(spi_1_csn),  .O(SPI_1_ss_i),  .T(SPI_1_ss_t));
-    
-//    spi_ila spi_ila_inst (.clk(axi_aclk), .probe0({
-//        SPI_1_io0_i, SPI_1_io0_o, SPI_1_io0_t,
-//        SPI_1_io1_i, SPI_1_io1_o, SPI_1_io1_t,
-//        SPI_1_sck_i, SPI_1_sck_o, SPI_1_sck_t,
-//        SPI_1_ss_i,  SPI_1_ss_o,  SPI_1_ss_t
-//    }));
     
 
     IOBUF temp_i2c_scl_iobuf (.I(temp_i2c_scl_o), .IO(temp_i2c_scl), .O(temp_i2c_scl_i), .T(temp_i2c_scl_t));
@@ -140,9 +129,9 @@ module top (
     //assign led1_red   = slv_reg[2][0];
     //assign led1_green = slv_reg[2][1];
     //assign led1_blue  = slv_reg[2][2];
-    assign led2_red   = slv_reg[2][4];
-    assign led2_green = slv_reg[2][5];
-    assign led2_blue  = slv_reg[2][6];
+//    assign led2_red   = slv_reg[2][4];
+//    assign led2_green = slv_reg[2][5];
+//    assign led2_blue  = slv_reg[2][6];
     assign slv_read[2] = slv_reg[2];
     
     assign slv_read[Nregs-1:3] = slv_reg[Nregs-1:3];
@@ -179,11 +168,21 @@ module top (
 		.S_AXI_WVALID  (M00_AXI_wvalid )
 	);
     
+    logic zmod_rx_clk;
     zmod_test zmod_test_inst (
         .base_clk(axi_aclk), 
         .clk_out_p(zmod_clk_out_p), .clk_out_n(zmod_clk_out_n), .d_out_p(zmod_d_out_p), .d_out_n(zmod_d_out_n), 
-        .clk_in_p(zmod_clk_in_p),   .clk_in_n(zmod_clk_in_n),   .d_in_p(zmod_d_in_p),   .d_in_n(zmod_d_in_n)
+        .clk_in_p(zmod_clk_in_p),   .clk_in_n(zmod_clk_in_n),   .d_in_p(zmod_d_in_p),   .d_in_n(zmod_d_in_n),
+        .rxclk(zmod_rxclk)
     );
+    
+    logic[31:0] zmod_count;
+    always_ff @(posedge zmod_rxclk) begin
+        zmod_count <= zmod_count + 1;
+        led2_red <= zmod_count[27];
+        led2_green <= zmod_count[26];
+        led2_blue <= zmod_count[25];
+    end     
 
 endmodule
 

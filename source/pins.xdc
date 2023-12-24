@@ -32,5 +32,5 @@ set_property PACKAGE_PIN R1     [get_ports zmod_d_in_p[2]]
 set_property PACKAGE_PIN K1     [get_ports zmod_d_in_p[1]]
 set_property PACKAGE_PIN R4     [get_ports zmod_d_in_p[0]]
 
-set_property IOB TRUE           [get_ports {zmod_d_*}]
+#set_property IOB TRUE           [get_ports {zmod_d_*}]
 
