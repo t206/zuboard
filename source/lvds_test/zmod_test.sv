@@ -1,3 +1,4 @@
+//
 module zmod_test (
     input   logic           base_clk,  // input reference clock
     output  logic           clk_out_p, clk_out_n,
@@ -12,7 +13,7 @@ module zmod_test (
     zmod_clk_wiz clk_wiz_inst (.clk_in1(base_clk), .clkout(clk), .clkoutx4(clkx4), .clkout300(refclk), .locked(locked));    
 
     // pattern generation
-    logic[7:0] tx_data=0, d_out;
+    logic[7:0] tx_data=0; 
     always_ff @(posedge clkx4) tx_data <= tx_data + 1;
     
     // transmit the tx clock
@@ -36,10 +37,11 @@ module zmod_test (
 
     logic[3:0] d_in, d_in_del; 
     logic[7:0] d_in_q, d_in_qq;
-    localparam int DELAY = 200;
+    localparam int DELAY = 500;
+    logic[3:0] d_out;
     generate for(genvar i=0; i<4; i++) begin
     
-        ODDRE1 #(.IS_C_INVERTED(1'b0), .IS_D1_INVERTED(1'b0), .IS_D2_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"), .SRVAL(1'b0)) ODDRE1_data (.Q(d_out[i]), .C(clkx4), .D1(tx_data[i*2+0]), .D2(tx_data[i*2+1]), .SR(1'b0));  
+        ODDRE1 #(.IS_C_INVERTED(1'b0), .IS_D1_INVERTED(1'b0), .IS_D2_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"), .SRVAL(1'b0)) ODDRE1_data (.Q(d_out[i]), .C(clkx4), .D1(tx_data[i*2+0]), .D2(tx_data[i*2+1]), .SR(reset_pipe[0]));  
         OBUFDS OBUFDS_data (.I(d_out[i]), .O(d_out_p[i]),  .OB(d_out_n[i]));   
         
         IBUFDS IBUFDS_data (.I(d_in_p[i]), .IB(d_in_n[i]), .O(d_in[i])); 
@@ -69,8 +71,7 @@ endmodule
       .IS_C_INVERTED(1'b0),           // Optional inversion for C
       .IS_D1_INVERTED(1'b0),          // Unsupported, do not use
       .IS_D2_INVERTED(1'b0),          // Unsupported, do not use
-      .SIM_DEVICE("ULTRASCALE_PLUS"), // Set the device version for simulation functionality (ULTRASCALE,
-                                      // ULTRASCALE_PLUS, ULTRASCALE_PLUS_ES1, ULTRASCALE_PLUS_ES2)
+      .SIM_DEVICE("ULTRASCALE_PLUS"), // Set the device version for simulation functionality (ULTRASCALE, ULTRASCALE_PLUS, ULTRASCALE_PLUS_ES1, ULTRASCALE_PLUS_ES2)
       .SRVAL(1'b0)                    // Initializes the ODDRE1 Flip-Flops to the specified value (1'b0, 1'b1)
    )
    ODDRE1_inst (
