@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="3,000.001 ns"></ZoomEndTime>
-      <Cursor1Time time="960.000 ns"></Cursor1Time>
+      <ZoomEndTime time="2,000.001 ns"></ZoomEndTime>
+      <Cursor1Time time="0.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
       <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="81"></ValueColumnWidth>
+      <ValueColumnWidth column_width="69"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="27" />
+   <WVObjectSize size="28" />
    <wvobject type="logic" fp_name="/zmod_test_tb/base_clk">
       <obj_property name="ElementShortName">base_clk</obj_property>
       <obj_property name="ObjectShortName">base_clk</obj_property>
@@ -52,10 +52,6 @@
       <obj_property name="ElementShortName">clk_in_p</obj_property>
       <obj_property name="ObjectShortName">clk_in_p</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/zmod_test_tb/clk_in_n">
-      <obj_property name="ElementShortName">clk_in_n</obj_property>
-      <obj_property name="ObjectShortName">clk_in_n</obj_property>
-   </wvobject>
    <wvobject type="array" fp_name="/zmod_test_tb/d_in_p">
       <obj_property name="ElementShortName">d_in_p[3:0]</obj_property>
       <obj_property name="ObjectShortName">d_in_p[3:0]</obj_property>
@@ -72,14 +68,6 @@
       <obj_property name="label">uut</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
-   <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk_in_p">
-      <obj_property name="ElementShortName">clk_in_p</obj_property>
-      <obj_property name="ObjectShortName">clk_in_p</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk_in_n">
-      <obj_property name="ElementShortName">clk_in_n</obj_property>
-      <obj_property name="ObjectShortName">clk_in_n</obj_property>
-   </wvobject>
    <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -92,10 +80,16 @@
       <obj_property name="ElementShortName">locked</obj_property>
       <obj_property name="ObjectShortName">locked</obj_property>
    </wvobject>
+   <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk_out_p">
+      <obj_property name="ElementShortName">clk_out_p</obj_property>
+      <obj_property name="ObjectShortName">clk_out_p</obj_property>
+   </wvobject>
    <wvobject type="array" fp_name="/zmod_test_tb/uut/tx_data">
       <obj_property name="ElementShortName">tx_data[7:0]</obj_property>
       <obj_property name="ObjectShortName">tx_data[7:0]</obj_property>
       <obj_property name="isExpanded"></obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
    </wvobject>
    <wvobject type="logic" fp_name="/zmod_test_tb/uut/clkx4">
       <obj_property name="ElementShortName">clkx4</obj_property>
@@ -116,6 +110,10 @@
       <obj_property name="label">rx</obj_property>
       <obj_property name="DisplayName">label</obj_property>
    </wvobject>
+   <wvobject type="logic" fp_name="/zmod_test_tb/uut/clk_in_p">
+      <obj_property name="ElementShortName">clk_in_p</obj_property>
+      <obj_property name="ObjectShortName">clk_in_p</obj_property>
+   </wvobject>
    <wvobject type="logic" fp_name="/zmod_test_tb/uut/rxclk">
       <obj_property name="ElementShortName">rxclk</obj_property>
       <obj_property name="ObjectShortName">rxclk</obj_property>
@@ -131,10 +129,21 @@
    <wvobject type="array" fp_name="/zmod_test_tb/uut/d_in_del">
       <obj_property name="ElementShortName">d_in_del[3:0]</obj_property>
       <obj_property name="ObjectShortName">d_in_del[3:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="isExpanded"></obj_property>
    </wvobject>
    <wvobject type="array" fp_name="/zmod_test_tb/uut/d_in_q">
       <obj_property name="ElementShortName">d_in_q[7:0]</obj_property>
       <obj_property name="ObjectShortName">d_in_q[7:0]</obj_property>
       <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/zmod_test_tb/uut/d_in_qq">
+      <obj_property name="ElementShortName">d_in_qq[7:0]</obj_property>
+      <obj_property name="ObjectShortName">d_in_qq[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/zmod_test_tb/uut/error">
+      <obj_property name="ElementShortName">error</obj_property>
+      <obj_property name="ObjectShortName">error</obj_property>
    </wvobject>
 </wave_config>

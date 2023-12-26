@@ -13,7 +13,7 @@ module zmod_test (
     zmod_clk_wiz clk_wiz_inst (.clk_in1(base_clk), .clkout(clk), .clkoutx4(clkx4), .clkout300(refclk), .locked(locked));    
 
     // pattern generation
-    logic[7:0] tx_data=0; 
+    logic[7:0] tx_data=0;
     always_ff @(posedge clkx4) tx_data <= tx_data + 1;
     
     // transmit the tx clock
@@ -22,11 +22,11 @@ module zmod_test (
     
 
     // rx clocks
-//    logic rxdivclk, rxlocked;
-//    zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout(rxclk), .divclkout(rxdivclk), .locked(rxlocked));
-    logic clk_in;
-    IBUFDS IBUFDS_rxclk (.I(clk_in_p), .IB(clk_in_n), .O(clk_in));            
-    BUFG BUFG_rxclk (.O(rxclk), .I(clk_in));
+    logic rxlocked, rxclk;
+    zmod_clk_in_wiz clk_in_wiz_inst (.clk_in1_p(clk_in_p), .clk_in1_n(clk_in_n), .clkout(rxclk), .locked(rxlocked));
+//    logic clk_in;
+//    IBUFDS IBUFDS_rxclk (.I(clk_in_p), .IB(clk_in_n), .O(clk_in));            
+//    BUFG BUFG_rxclk (.O(rxclk), .I(clk_in));
 
     
     logic[23:0] reset_pipe = 24'hffffff;
@@ -37,7 +37,7 @@ module zmod_test (
 
     logic[3:0] d_in, d_in_del; 
     logic[7:0] d_in_q, d_in_qq;
-    localparam int DELAY = 500;
+    localparam int DELAY = 0;
     logic[3:0] d_out;
     generate for(genvar i=0; i<4; i++) begin
     
@@ -45,10 +45,11 @@ module zmod_test (
         OBUFDS OBUFDS_data (.I(d_out[i]), .O(d_out_p[i]),  .OB(d_out_n[i]));   
         
         IBUFDS IBUFDS_data (.I(d_in_p[i]), .IB(d_in_n[i]), .O(d_in[i])); 
-        input_delay #(.DELAY(DELAY)) idelay_db (.din(d_in[i]), .dout(d_in_del[i]));       
-        IDDRE1 #(.DDR_CLK_EDGE("OPPOSITE_EDGE"), .IS_CB_INVERTED(1'b1), .IS_C_INVERTED(1'b0)) IDDRE1_inst (.Q1(d_in_q[i*2+0]), .Q2(d_in_q[i*2+1]), .C(rxclk),.CB(rxclk), .D(d_in_del[i]), .R(1'b0));
+        //input_delay #(.DELAY(DELAY)) idelay_db (.din(d_in[i]), .dout(d_in_del[i]));       
+        IDDRE1 #(.DDR_CLK_EDGE("SAME_EDGE"), .IS_CB_INVERTED(1'b1), .IS_C_INVERTED(1'b0)) IDDRE1_inst (.Q1(d_in_q[i*2+1]), .Q2(d_in_q[i*2+0]), .C(rxclk),.CB(rxclk), .D(d_in_del[i]), .R(1'b0));
         
     end endgenerate
+    assign d_in_del = d_in;
 
 
     logic error=0; 
@@ -82,18 +83,17 @@ endmodule
       .SR(SR)  // 1-bit input: Active-High Async Reset
    );
 
-IDDRE1 #(
-.DDR_CLK_EDGE("OPPOSITE_EDGE"), // IDDRE1 mode (OPPOSITE_EDGE, SAME_EDGE, SAME_EDGE_PIPELINED)
-.IS_CB_INVERTED(1'b0), // Optional inversion for CB
-.IS_C_INVERTED(1'b0) // Optional inversion for C
-)
-IDDRE1_inst (
-.Q1(Q1), // 1-bit output: Registered parallel output 1
-.Q2(Q2), // 1-bit output: Registered parallel output 2
-.C(C), // 1-bit input: High-speed clock
-.CB(CB), // 1-bit input: Inversion of High-speed clock C
-.D(D), // 1-bit input: Serial Data Input
-.R(R) // 1-bit input: Active High Async Reset
-);
+    IDDRE1 #(
+        .DDR_CLK_EDGE("OPPOSITE_EDGE"), // IDDRE1 mode (OPPOSITE_EDGE, SAME_EDGE, SAME_EDGE_PIPELINED)
+        .IS_CB_INVERTED(1'b0), // Optional inversion for CB
+        .IS_C_INVERTED(1'b0) // Optional inversion for C
+    ) IDDRE1_inst (
+        .Q1(Q1), // 1-bit output: Registered parallel output 1
+        .Q2(Q2), // 1-bit output: Registered parallel output 2
+        .C(C), // 1-bit input: High-speed clock
+        .CB(CB), // 1-bit input: Inversion of High-speed clock C
+        .D(D), // 1-bit input: Serial Data Input
+        .R(R) // 1-bit input: Active High Async Reset
+    );
 
 */
