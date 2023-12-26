@@ -14,7 +14,13 @@
 
 
 #create_generated_clock -name zmod_clk_out -divide_by 1 -source [get_pins zmod_test_inst/ODDRE1_clk_out/C] [get_ports zmod_clk_out_p]
-#set_output_delay -clock [get_clocks {zmod_clk_out}] -clock_fall -min -add_delay 0.1     [get_ports {zmod_d_out_n[*]}]
-#set_output_delay -clock [get_clocks {zmod_clk_out}] -clock_fall -max -add_delay 1.15    [get_ports {zmod_d_out_n[*]}]
-#set_output_delay -clock [get_clocks {zmod_clk_out}]             -min -add_delay 0.1     [get_ports {zmod_d_out_n[*]}]
-#set_output_delay -clock [get_clocks {zmod_clk_out}]             -max -add_delay 1.15    [get_ports {zmod_d_out_n[*]}]
+
+#set_output_delay -clock [get_clocks {zmod_clk_out}] -clock_fall -min -add_delay -0.1 [get_ports {zmod_d_out_p[*]}]
+#set_output_delay -clock [get_clocks {zmod_clk_out}] -clock_fall -max -add_delay +0.1 [get_ports {zmod_d_out_p[*]}]
+#set_output_delay -clock [get_clocks {zmod_clk_out}]             -min -add_delay -0.1 [get_ports {zmod_d_out_p[*]}]
+#set_output_delay -clock [get_clocks {zmod_clk_out}]             -max -add_delay +0.1 [get_ports {zmod_d_out_p[*]}]
+
+#set_output_delay -clock [get_clocks {zmod_clk_out}] -clock_fall -min -add_delay 0.1  [get_ports {zmod_d_out_p[*]}]
+#set_output_delay -clock [get_clocks {zmod_clk_out}] -clock_fall -max -add_delay 1.15 [get_ports {zmod_d_out_p[*]}]
+#set_output_delay -clock [get_clocks {zmod_clk_out}]             -min -add_delay 0.1  [get_ports {zmod_d_out_p[*]}]
+#set_output_delay -clock [get_clocks {zmod_clk_out}]             -max -add_delay 1.15 [get_ports {zmod_d_out_p[*]}]
