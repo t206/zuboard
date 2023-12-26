@@ -9,15 +9,15 @@ module zmod_test (
 );
 
     // tx clock synthesis
-    logic clk, clkx4, locked, refclk;
-    zmod_clk_wiz clk_wiz_inst (.clk_in1(base_clk), .clkout(), .clkoutx4(clkx4), .clkout300(), .locked(locked));    
+    logic txclk, locked, refclk;
+    zmod_clk_wiz clk_wiz_inst (.clk_in1(base_clk), .clkout(txclk), .locked(locked));    
 
     // pattern generation
     logic[7:0] tx_data=0;
-    always_ff @(posedge clkx4) tx_data <= tx_data + 1;
+    always_ff @(posedge txclk) tx_data <= tx_data + 1;
     
     // transmit the tx clock
-    ODDRE1 #(.IS_C_INVERTED(1'b0), .IS_D1_INVERTED(1'b0), .IS_D2_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"), .SRVAL(1'b0)) ODDRE1_clk_out (.Q(clk_out), .C(clkx4), .D1(1'b1), .D2(1'b0), .SR(1'b0));   
+    ODDRE1 #(.IS_C_INVERTED(1'b0), .IS_D1_INVERTED(1'b0), .IS_D2_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"), .SRVAL(1'b0)) ODDRE1_clk_out (.Q(clk_out), .C(txclk), .D1(1'b1), .D2(1'b0), .SR(1'b0));   
     OBUFDS OBUFDS_clk_out (.I(clk_out), .O(clk_out_p),  .OB(clk_out_n));   
     
 
@@ -33,7 +33,7 @@ module zmod_test (
     logic[3:0] d_out;
     generate for(genvar i=0; i<4; i++) begin
     
-        ODDRE1 #(.IS_C_INVERTED(1'b0), .IS_D1_INVERTED(1'b0), .IS_D2_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"), .SRVAL(1'b0)) ODDRE1_data (.Q(d_out[i]), .C(clkx4), .D1(tx_data[i*2+0]), .D2(tx_data[i*2+1]), .SR(1'b0));  
+        ODDRE1 #(.IS_C_INVERTED(1'b0), .IS_D1_INVERTED(1'b0), .IS_D2_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"), .SRVAL(1'b0)) ODDRE1_data (.Q(d_out[i]), .C(txclk), .D1(tx_data[i*2+0]), .D2(tx_data[i*2+1]), .SR(1'b0));  
         OBUFDS OBUFDS_data (.I(d_out[i]), .O(d_out_p[i]),  .OB(d_out_n[i]));   
         
         IBUFDS IBUFDS_data (.I(d_in_p[i]), .IB(d_in_n[i]), .O(d_in[i]));    
