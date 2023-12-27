@@ -34,7 +34,7 @@ module zmod_test (
 
 
     logic[3:0] d_out, d_in;
-    logic[31:0] rx_data;
+    logic[3:0][7:0] rx_data;
     generate for(genvar i=0; i<4; i++) begin
 
         // data serialization and transmission    
@@ -46,7 +46,7 @@ module zmod_test (
         logic rx_fifo_empty;
         IBUFDS IBUFDS_data (.I(d_in_p[i]), .IB(d_in_n[i]), .O(d_in[i]));        
         ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("FALSE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b1), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
-        ISERDESE3_data (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk), .CLKDIV(rxdivclk), .D(d_in[i]), .Q(rx_data[i*8 +: 8]), .FIFO_EMPTY(rx_fifo_empty), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(clk), .FIFO_RD_EN(~rx_fifo_empty));  
+        ISERDESE3_data (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk), .CLKDIV(rxdivclk), .D(d_in[i]), .Q(rx_data[i]), .FIFO_EMPTY(rx_fifo_empty), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(clk), .FIFO_RD_EN(~rx_fifo_empty));  
     
     end endgenerate  
 
@@ -71,10 +71,10 @@ module zmod_test (
         endcase
 
         // create 16 bit words of the last two bytes of each lane
-        shift_data[3] <= {shift_data[3][7:0], rx_data[31:24]};
-        shift_data[2] <= {shift_data[2][7:0], rx_data[23:16]};
-        shift_data[1] <= {shift_data[1][7:0], rx_data[15: 8]};
-        shift_data[0] <= {shift_data[0][7:0], rx_data[ 7: 0]}; 
+        shift_data[3] <= {shift_data[3][7:0], rx_data[3]};
+        shift_data[2] <= {shift_data[2][7:0], rx_data[2]};
+        shift_data[1] <= {shift_data[1][7:0], rx_data[1]};
+        shift_data[0] <= {shift_data[0][7:0], rx_data[0]}; 
 
         // apply the shift
         shift_dout[3] <= shift_data[3] >> shift;  

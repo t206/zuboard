@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wave_config>
+   <wave_state>
+   </wave_state>
+   <db_ref_list>
+      <db_ref path="serdes_tb_behav.wdb" id="1">
+         <top_modules>
+            <top_module name="glbl" />
+            <top_module name="serdes_tb" />
+         </top_modules>
+      </db_ref>
+   </db_ref_list>
+   <zoom_setting>
+      <ZoomStartTime time="0.000000 us"></ZoomStartTime>
+      <ZoomEndTime time="30.000001 us"></ZoomEndTime>
+      <Cursor1Time time="21.000000 us"></Cursor1Time>
+   </zoom_setting>
+   <column_width_setting>
+      <NameColumnWidth column_width="244"></NameColumnWidth>
+      <ValueColumnWidth column_width="96"></ValueColumnWidth>
+   </column_width_setting>
+   <WVObjectSize size="14" />
+   <wvobject type="logic" fp_name="/serdes_tb/clk">
+      <obj_property name="ElementShortName">clk</obj_property>
+      <obj_property name="ObjectShortName">clk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/serdes_tb/txclk">
+      <obj_property name="ElementShortName">txclk</obj_property>
+      <obj_property name="ObjectShortName">txclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/serdes_tb/txdivclk">
+      <obj_property name="ElementShortName">txdivclk</obj_property>
+      <obj_property name="ObjectShortName">txdivclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/serdes_tb/hssclk">
+      <obj_property name="ElementShortName">hssclk</obj_property>
+      <obj_property name="ObjectShortName">hssclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/serdes_tb/hss_sync">
+      <obj_property name="ElementShortName">hss_sync</obj_property>
+      <obj_property name="ObjectShortName">hss_sync</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/serdes_tb/txdata">
+      <obj_property name="ElementShortName">txdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">txdata[7:0]</obj_property>
+      <obj_property name="CustomSignalColor">#FFA500</obj_property>
+      <obj_property name="UseCustomSignalColor">true</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+      <wvobject type="logic" fp_name="/serdes_tb/txdata[7]">
+         <obj_property name="ElementShortName">[7]</obj_property>
+         <obj_property name="ObjectShortName">[7]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/serdes_tb/txdata[6]">
+         <obj_property name="ElementShortName">[6]</obj_property>
+         <obj_property name="ObjectShortName">[6]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/serdes_tb/txdata[5]">
+         <obj_property name="ElementShortName">[5]</obj_property>
+         <obj_property name="ObjectShortName">[5]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/serdes_tb/txdata[4]">
+         <obj_property name="ElementShortName">[4]</obj_property>
+         <obj_property name="ObjectShortName">[4]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/serdes_tb/txdata[3]">
+         <obj_property name="ElementShortName">[3]</obj_property>
+         <obj_property name="ObjectShortName">[3]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/serdes_tb/txdata[2]">
+         <obj_property name="ElementShortName">[2]</obj_property>
+         <obj_property name="ObjectShortName">[2]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/serdes_tb/txdata[1]">
+         <obj_property name="ElementShortName">[1]</obj_property>
+         <obj_property name="ObjectShortName">[1]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+      <wvobject type="logic" fp_name="/serdes_tb/txdata[0]">
+         <obj_property name="ElementShortName">[0]</obj_property>
+         <obj_property name="ObjectShortName">[0]</obj_property>
+         <obj_property name="CustomSignalColor">#FFA500</obj_property>
+         <obj_property name="UseCustomSignalColor">true</obj_property>
+      </wvobject>
+   </wvobject>
+   <wvobject type="logic" fp_name="/serdes_tb/hssdata">
+      <obj_property name="ElementShortName">hssdata</obj_property>
+      <obj_property name="ObjectShortName">hssdata</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/serdes_tb/hssclk">
+      <obj_property name="ElementShortName">hssclk</obj_property>
+      <obj_property name="ObjectShortName">hssclk</obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/serdes_tb/rxdivclk">
+      <obj_property name="ElementShortName">rxdivclk</obj_property>
+      <obj_property name="ObjectShortName">rxdivclk</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/serdes_tb/rxdata">
+      <obj_property name="ElementShortName">rxdata[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rxdata[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/serdes_tb/rxsync">
+      <obj_property name="ElementShortName">rxsync[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rxsync[7:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/serdes_tb/rxshift">
+      <obj_property name="ElementShortName">rxshift[15:0]</obj_property>
+      <obj_property name="ObjectShortName">rxshift[15:0]</obj_property>
+   </wvobject>
+   <wvobject type="array" fp_name="/serdes_tb/rx_dout">
+      <obj_property name="ElementShortName">rx_dout[7:0]</obj_property>
+      <obj_property name="ObjectShortName">rx_dout[7:0]</obj_property>
+      <obj_property name="isExpanded"></obj_property>
+   </wvobject>
+   <wvobject type="logic" fp_name="/serdes_tb/error">
+      <obj_property name="ElementShortName">error</obj_property>
+      <obj_property name="ObjectShortName">error</obj_property>
+   </wvobject>
+</wave_config>
