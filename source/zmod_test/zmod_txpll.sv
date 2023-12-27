@@ -1,5 +1,5 @@
 
-module zmod_pll (
+module zmod_txpll (
     input         clkin,
     output        clkout,
     output        clkoutx4,

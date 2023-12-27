@@ -8,7 +8,7 @@ module serdes_tb ();
 
     // tx clocks
     logic txclk, txdivclk, hssclk, hssclk_p, hssclk_n;
-    zmod_pll pll_inst (.clkin(clk), .clkout(txdivclk), .clkoutx4(txclk), .locked(txlocked));
+    zmod_txpll txpll_inst (.clkin(clk), .clkout(txdivclk), .clkoutx4(txclk), .locked(txlocked));
     OSERDESE3 #(.DATA_WIDTH(8), .INIT(1'b0), .IS_CLKDIV_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
     OSERDESE3_txclk (.CLK(txclk), .CLKDIV(txdivclk), .D(8'b10101010), .RST(1'b0), .OQ(hssclk), .T(1'b0), .T_OUT());
     OBUFDS OBUFDS_hssclk (.I(hssclk), .O(hssclk_p), .OB(hssclk_n));   
@@ -30,9 +30,10 @@ module serdes_tb ();
     end endgenerate
 
     // rx clock
-    logic rxdivclk, rxclk;
-    IBUFDS IBUFDS_clk (.I(hssclk_p), .IB(hssclk_n), .O(rxclk));        
-    BUFGCE_DIV #(.BUFGCE_DIVIDE(4), .IS_CE_INVERTED(1'b0), .IS_CLR_INVERTED(1'b0), .IS_I_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS")) BUFGCE_DIV_rxclk (.I(rxclk), .O(rxdivclk), .CE(1'b1), .CLR(1'b0));    
+    logic rxdivclk, rxclk, rxclk_buf, rxlocked;
+    IBUFDS IBUFDS_clk (.I(hssclk_p), .IB(hssclk_n), .O(rxclk_buf));        
+    zmod_rxpll rxpll_inst(.clkin(rxclk_buf), .clkout(rxclk), .divclkout(rxdivclk), .locked(rxlocked));
+    //BUFGCE_DIV #(.BUFGCE_DIVIDE(4), .IS_CE_INVERTED(1'b0), .IS_CLR_INVERTED(1'b0), .IS_I_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS")) BUFGCE_DIV_rxclk (.I(rxclk), .O(rxdivclk), .CE(1'b1), .CLR(1'b0));    
 
     // rx sync
     logic[7:0] rxsync;
