@@ -1,16 +1,16 @@
 `timescale 1ns / 1ps
 
 module serdes_tb ();
-    
+
+    localparam int N = 3;
+
+    localparam clk_period=10; logic clk=1; always #(clk_period/2) clk=~clk;
+
     // tx clocks
-    localparam clk_period=2; logic clk=1; always #(clk_period/2) clk=~clk;
-    logic txclk;
-    assign txclk = clk;
-    logic txdivclk=0; always #(4*clk_period/2) txdivclk=~txdivclk;
-    logic hssclk;
+    logic txclk, txdivclk, hssclk, hssclk_p, hssclk_n;
+    zmod_pll pll_inst (.clkin(clk), .clkout(txdivclk), .clkoutx4(txclk), .locked(txlocked));
     OSERDESE3 #(.DATA_WIDTH(8), .INIT(1'b0), .IS_CLKDIV_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
     OSERDESE3_txclk (.CLK(txclk), .CLKDIV(txdivclk), .D(8'b10101010), .RST(1'b0), .OQ(hssclk), .T(1'b0), .T_OUT());
-    logic hssclk_p, hssclk_n;
     OBUFDS OBUFDS_hssclk (.I(hssclk), .O(hssclk_p), .OB(hssclk_n));   
 
     // tx sync
@@ -20,12 +20,14 @@ module serdes_tb ();
     OBUFDS OBUFDS_hss_sync (.I(hss_sync), .O(hss_sync_p), .OB(hss_sync_n));   
 
     // tx data
-    logic[7:0] txdata=0;
+    logic[N-1:0][7:0] txdata=0;
     always_ff @(posedge txdivclk) txdata <= txdata+1;
-    logic txhssdata, hssdata_p, hssdata_n;
-    OSERDESE3 #(.DATA_WIDTH(8), .INIT(1'b0), .IS_CLKDIV_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
-    OSERDESE3_txdata (.CLK(txclk), .CLKDIV(txdivclk), .D(txdata), .RST(1'b0), .OQ(txhssdata), .T(1'b0), .T_OUT());
-    OBUFDS OBUFDS_txdata (.I(txhssdata), .O(hssdata_p), .OB(hssdata_n));   
+    logic[N-1:0] txhssdata, hssdata_p, hssdata_n;
+    generate for (genvar i=0; i<N; i++) begin
+        OSERDESE3 #(.DATA_WIDTH(8), .INIT(1'b0), .IS_CLKDIV_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
+        OSERDESE3_txdata (.CLK(txclk), .CLKDIV(txdivclk), .D(txdata[i]), .RST(1'b0), .OQ(txhssdata[i]), .T(1'b0), .T_OUT());
+        OBUFDS OBUFDS_txdata (.I(txhssdata[i]), .O(hssdata_p[i]), .OB(hssdata_n[i]));   
+    end endgenerate
 
     // rx clock
     logic rxdivclk, rxclk;
@@ -40,22 +42,24 @@ module serdes_tb ();
     ISERDESE3_rxsync (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk), .CLKDIV(rxdivclk), .D(rx_hss_sync), .Q(rxsync), .FIFO_EMPTY(), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(1'b0), .FIFO_RD_EN(1'b0));  
 
     // rx data
-    logic[7:0] rxdata;
-    logic rxhssdata;
-    IBUFDS IBUFDS_data (.I(hssdata_p), .IB(hssdata_n), .O(rxhssdata));        
-    ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("FALSE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b1), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
-    ISERDESE3_rxdata (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk), .CLKDIV(rxdivclk), .D(rxhssdata), .Q(rxdata), .FIFO_EMPTY(), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(1'b0), .FIFO_RD_EN(1'b0));  
+    logic[N-1:0] rxhssdata;
+    logic[N-1:0][7:0] rxdata;
+    generate for (genvar i=0; i<N; i++) begin
+        IBUFDS IBUFDS_data (.I(hssdata_p[i]), .IB(hssdata_n[i]), .O(rxhssdata[i]));        
+        ISERDESE3 #(.DATA_WIDTH(8), .FIFO_ENABLE("FALSE"), .FIFO_SYNC_MODE("FALSE"), .IS_CLK_B_INVERTED(1'b1), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
+        ISERDESE3_rxdata (.RST(1'b0), .CLK(rxclk), .CLK_B(rxclk), .CLKDIV(rxdivclk), .D(rxhssdata[i]), .Q(rxdata[i]), .FIFO_EMPTY(), .INTERNAL_DIVCLK(), .FIFO_RD_CLK(1'b0), .FIFO_RD_EN(1'b0));  
+    end endgenerate
 
     // rx alignment gearbox
-    logic[15:0] rxshift;
+    logic[N-1:0][15:0] rxshift;
     logic[3:0] shift;
-    logic[7:0] rx_dout, rx_dout_q;
+    logic[N-1:0][7:0] rx_dout, rx_dout_q;
     logic error=0; 
-    logic[7:0] inc_sum;
+    logic[N-1:0][7:0] inc_sum;
     assign inc_sum = rx_dout_q+1;
     always_ff @(posedge rxdivclk) begin
 
-        rxshift <= {rxdata, rxshift[15:8]};
+        for (int i=0; i<N; i++) rxshift[i] <= {rxdata[i], rxshift[i][15:8]};
 
         // determine the needed shift
         case (rxsync)
@@ -71,7 +75,7 @@ module serdes_tb ();
         endcase
 
         // apply shift
-        rx_dout <= rxshift >> shift;
+        for (int i=0; i<N; i++) rx_dout[i] <= rxshift[i] >> shift;
 
         // rx data verification
         rx_dout_q <= rx_dout;

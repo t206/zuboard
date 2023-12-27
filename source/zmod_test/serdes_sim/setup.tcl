@@ -10,6 +10,7 @@ set_property default_lib work [current_project]
 #upgrade_ip -quiet  [get_ips *]
 #generate_target {all} [get_ips *]
 
+read_verilog -sv ../zmod_pll.sv
 read_verilog -sv ../serdes_tb.sv
 
 add_files -fileset sim_1 -norecurse ./serdes_tb_behav.wcfg
