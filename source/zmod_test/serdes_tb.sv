@@ -32,8 +32,7 @@ module serdes_tb ();
     // rx clock
     logic rxdivclk, rxclk, rxclk_buf, rxlocked;
     IBUFDS IBUFDS_clk (.I(hssclk_p), .IB(hssclk_n), .O(rxclk_buf));        
-    zmod_rxpll rxpll_inst(.clkin(rxclk_buf), .clkout(rxclk), .divclkout(rxdivclk), .locked(rxlocked));
-    //BUFGCE_DIV #(.BUFGCE_DIVIDE(4), .IS_CE_INVERTED(1'b0), .IS_CLR_INVERTED(1'b0), .IS_I_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS")) BUFGCE_DIV_rxclk (.I(rxclk), .O(rxdivclk), .CE(1'b1), .CLR(1'b0));    
+    zmod_rxdll rxdll_inst(.clkin(rxclk_buf), .clkout(rxclk), .divclkout(rxdivclk), .locked(rxlocked));
 
     // rx sync
     logic[7:0] rxsync;

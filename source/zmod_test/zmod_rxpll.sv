@@ -7,16 +7,16 @@ module zmod_rxpll (
 );
 
     logic clkin_buf, clkfb, clkout0, clkout1;
-    IBUF clkin_ibuf (.O (clkin_buf), .I (clkin));
+    BUFG clkin_ibuf (.O (clkin_buf), .I (clkin));
 
     PLLE4_BASE #(
-        .CLKFBOUT_MULT(2),          // Multiply value for all CLKOUT
-        .CLKFBOUT_PHASE(0.0),       // Phase offset in degrees of CLKFB
+        .CLKFBOUT_MULT(3),          // Multiply value for all CLKOUT
+        .CLKFBOUT_PHASE(120.0),       // Phase offset in degrees of CLKFB
         .CLKIN_PERIOD(2.5),         // Input clock period in ns to ps resolution (i.e., 33.333 is 30 MHz).
-        .CLKOUT0_DIVIDE(2),         // Divide amount for CLKOUT0
+        .CLKOUT0_DIVIDE(3),         // Divide amount for CLKOUT0
         .CLKOUT0_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT0
         .CLKOUT0_PHASE(0.0),        // Phase offset for CLKOUT0
-        .CLKOUT1_DIVIDE(8),         // Divide amount for CLKOUT1
+        .CLKOUT1_DIVIDE(12),         // Divide amount for CLKOUT1
         .CLKOUT1_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT1
         .CLKOUT1_PHASE(0.0),        // Phase offset for CLKOUT1
         .CLKOUTPHY_MODE("VCO_2X"),  // Frequency of the CLKOUTPHY

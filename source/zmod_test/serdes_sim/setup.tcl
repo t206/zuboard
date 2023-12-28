@@ -11,6 +11,7 @@ set_property default_lib work [current_project]
 #generate_target {all} [get_ips *]
 
 read_verilog -sv ../zmod_txpll.sv
+read_verilog -sv ../zmod_rxdll.sv
 read_verilog -sv ../zmod_rxpll.sv
 read_verilog -sv ../serdes_tb.sv
 

@@ -12,14 +12,14 @@
    </db_ref_list>
    <zoom_setting>
       <ZoomStartTime time="0.000 ns"></ZoomStartTime>
-      <ZoomEndTime time="2,000.001 ns"></ZoomEndTime>
+      <ZoomEndTime time="2,000.000 ns"></ZoomEndTime>
       <Cursor1Time time="0.000 ns"></Cursor1Time>
    </zoom_setting>
    <column_width_setting>
-      <NameColumnWidth column_width="244"></NameColumnWidth>
-      <ValueColumnWidth column_width="81"></ValueColumnWidth>
+      <NameColumnWidth column_width="221"></NameColumnWidth>
+      <ValueColumnWidth column_width="79"></ValueColumnWidth>
    </column_width_setting>
-   <WVObjectSize size="28" />
+   <WVObjectSize size="20" />
    <wvobject type="logic" fp_name="/serdes_tb/clk">
       <obj_property name="ElementShortName">clk</obj_property>
       <obj_property name="ObjectShortName">clk</obj_property>
@@ -103,37 +103,5 @@
    <wvobject fp_name="divider50" type="divider">
       <obj_property name="label">rxpll</obj_property>
       <obj_property name="DisplayName">label</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/serdes_tb/rxpll_inst/clkin">
-      <obj_property name="ElementShortName">clkin</obj_property>
-      <obj_property name="ObjectShortName">clkin</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/serdes_tb/rxpll_inst/clkout">
-      <obj_property name="ElementShortName">clkout</obj_property>
-      <obj_property name="ObjectShortName">clkout</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/serdes_tb/rxpll_inst/divclkout">
-      <obj_property name="ElementShortName">divclkout</obj_property>
-      <obj_property name="ObjectShortName">divclkout</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/serdes_tb/rxpll_inst/locked">
-      <obj_property name="ElementShortName">locked</obj_property>
-      <obj_property name="ObjectShortName">locked</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/serdes_tb/rxpll_inst/clkin_buf">
-      <obj_property name="ElementShortName">clkin_buf</obj_property>
-      <obj_property name="ObjectShortName">clkin_buf</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/serdes_tb/rxpll_inst/clkfb">
-      <obj_property name="ElementShortName">clkfb</obj_property>
-      <obj_property name="ObjectShortName">clkfb</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/serdes_tb/rxpll_inst/clkout0">
-      <obj_property name="ElementShortName">clkout0</obj_property>
-      <obj_property name="ObjectShortName">clkout0</obj_property>
-   </wvobject>
-   <wvobject type="logic" fp_name="/serdes_tb/rxpll_inst/clkout1">
-      <obj_property name="ElementShortName">clkout1</obj_property>
-      <obj_property name="ObjectShortName">clkout1</obj_property>
    </wvobject>
 </wave_config>

@@ -7,7 +7,7 @@ module zmod_txpll (
 );
 
     logic clkin_buf, clkfb, clkout0, clkout1;
-    IBUF clkin_ibuf (.O (clkin_buf), .I (clkin));
+    BUFG clkin_ibuf (.O (clkin_buf), .I (clkin));
 
     PLLE4_BASE #(
         .CLKFBOUT_MULT(8),          // Multiply value for all CLKOUT
