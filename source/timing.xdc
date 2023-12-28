@@ -1,5 +1,5 @@
 
-create_clock -period 1.818 -name zmod_clk_in [get_ports {zmod_clk_in_p}]
+create_clock -period 1.667 -name zmod_clk_in [get_ports {zmod_clk_in_p}]
 
 #set zmod_mindel 1.05
 #set zmod_maxdel 1.45

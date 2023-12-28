@@ -5,7 +5,7 @@ module zmod_txpll (
     output        clkoutx4,
     output        locked
 );
-    localparam int M = 11;
+    localparam int M = 12;
 
     logic clkin_buf, clkfb, clkout0, clkout1;
     BUFG clkin_ibuf (.O (clkin_buf), .I (clkin));
