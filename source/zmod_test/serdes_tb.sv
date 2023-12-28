@@ -2,7 +2,7 @@
 
 module serdes_tb ();
 
-    localparam int N = 3;
+    localparam int N = 3; // number of data lanes
 
     localparam clk_period=10; logic clk=1; always #(clk_period/2) clk=~clk;
 
