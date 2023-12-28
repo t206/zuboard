@@ -10,9 +10,9 @@ module zmod_rxdll (
     
     MMCME4_BASE #(
         .BANDWIDTH("OPTIMIZED"),    // Jitter programming
-        .CLKFBOUT_MULT_F(2.0),      // Multiply value for all CLKOUT
+        .CLKFBOUT_MULT_F(4.0),      // Multiply value for all CLKOUT
         .CLKFBOUT_PHASE(90.0),      // Phase offset in degrees of CLKFB
-        .CLKIN1_PERIOD(2.5),        // Input clock period in ns to ps resolution (i.e., 33.333 is 30 MHz).
+        .CLKIN1_PERIOD(1.818),        // Input clock period in ns to ps resolution (i.e., 33.333 is 30 MHz).
         .CLKOUT0_DIVIDE_F(2.0),     // Divide amount for CLKOUT0
         .CLKOUT0_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT0
         .CLKOUT0_PHASE(0.0),        // Phase offset for CLKOUT0
@@ -35,7 +35,7 @@ module zmod_rxdll (
         .CLKOUT6_DIVIDE(1),         // Divide amount for CLKOUT (1-128)
         .CLKOUT6_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT outputs (0.001-0.999).
         .CLKOUT6_PHASE(0.0),        // Phase offset for CLKOUT outputs (-360.000-360.000).
-        .DIVCLK_DIVIDE(1),          // Master division value
+        .DIVCLK_DIVIDE(2),          // Master division value
         .IS_CLKFBIN_INVERTED(1'b0), // Optional inversion for CLKFBIN
         .IS_CLKIN1_INVERTED(1'b0),  // Optional inversion for CLKIN1
         .IS_PWRDWN_INVERTED(1'b0),  // Optional inversion for PWRDWN

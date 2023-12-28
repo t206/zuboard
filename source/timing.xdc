@@ -1,15 +1,16 @@
 
-#create_clock -period 5.0 -name zmod_clk_in_p [get_ports {zmod_clk_in_p}]
+create_clock -period 1.818 -name zmod_clk_in [get_ports {zmod_clk_in_p}]
 
 #set zmod_mindel 1.05
 #set zmod_maxdel 1.45
 
 #set zmod_mindel -0.1
 #set zmod_maxdel +0.1
-#set_input_delay -clock [get_clocks {zmod_clk_in_p}] -clock_fall -min -add_delay $zmod_mindel [get_ports {zmod_d_in_p[*]}]
-#set_input_delay -clock [get_clocks {zmod_clk_in_p}] -clock_fall -max -add_delay $zmod_maxdel [get_ports {zmod_d_in_p[*]}]
-#set_input_delay -clock [get_clocks {zmod_clk_in_p}]             -min -add_delay $zmod_mindel [get_ports {zmod_d_in_p[*]}]
-#set_input_delay -clock [get_clocks {zmod_clk_in_p}]             -max -add_delay $zmod_maxdel [get_ports {zmod_d_in_p[*]}]
+
+#set_input_delay -clock [get_clocks {zmod_clk_in}] -clock_fall -min -add_delay $zmod_mindel [get_ports {zmod_d_in_p[*]}]
+#set_input_delay -clock [get_clocks {zmod_clk_in}] -clock_fall -max -add_delay $zmod_maxdel [get_ports {zmod_d_in_p[*]}]
+#set_input_delay -clock [get_clocks {zmod_clk_in}]             -min -add_delay $zmod_mindel [get_ports {zmod_d_in_p[*]}]
+#set_input_delay -clock [get_clocks {zmod_clk_in}]             -max -add_delay $zmod_maxdel [get_ports {zmod_d_in_p[*]}]
 
 
 

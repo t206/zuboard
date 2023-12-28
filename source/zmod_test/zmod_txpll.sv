@@ -5,12 +5,13 @@ module zmod_txpll (
     output        clkoutx4,
     output        locked
 );
+    localparam int M = 11;
 
     logic clkin_buf, clkfb, clkout0, clkout1;
     BUFG clkin_ibuf (.O (clkin_buf), .I (clkin));
 
     PLLE4_BASE #(
-        .CLKFBOUT_MULT(8),          // Multiply value for all CLKOUT
+        .CLKFBOUT_MULT(M),          // Multiply value for all CLKOUT
         .CLKFBOUT_PHASE(0.0),       // Phase offset in degrees of CLKFB
         .CLKIN_PERIOD(10.0),         // Input clock period in ns to ps resolution (i.e., 33.333 is 30 MHz).
         .CLKOUT0_DIVIDE(8),         // Divide amount for CLKOUT0
