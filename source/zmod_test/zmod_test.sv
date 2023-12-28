@@ -8,7 +8,8 @@ module zmod_test (
     output  logic           clk_out_p, clk_out_n,
     output  logic[3:0]      d_out_p,   d_out_n,
     input   logic           clk_in_p,  clk_in_n,
-    input   logic[3:0]      d_in_p,    d_in_n
+    input   logic[3:0]      d_in_p,    d_in_n,
+    output  logic           rxclk
 );
 
     localparam int N = 3; // number of data lanes
@@ -40,7 +41,7 @@ module zmod_test (
     end endgenerate
 
     // rx clock
-    logic rxdivclk, rxclk, rxclk_buf, rxlocked;
+    logic rxdivclk, rxclk_buf, rxlocked;
     IBUFDS IBUFDS_clk (.I(clk_in_p), .IB(clk_in_n), .O(rxclk_buf));        
     zmod_rxdll rxdll_inst(.clkin(rxclk_buf), .clkout(rxclk), .divclkout(rxdivclk), .locked(rxlocked));
 
@@ -95,7 +96,7 @@ module zmod_test (
 
     
     // debug
-    zmod_ila ila_inst (.clk(rxdivclk), .probe0({error, rx_dout})); // 25
+    zmod_ila ila_inst (.clk(rxdivclk), .probe0({error, rx_dout, rxsync, shift})); // 37
 
 endmodule
 

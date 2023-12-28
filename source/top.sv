@@ -170,7 +170,7 @@ module top (
     
     logic zmod_rx_clk;
     zmod_test zmod_test_inst (
-        .base_clk(axi_aclk), 
+        .clk(axi_aclk), 
         .clk_out_p(zmod_clk_out_p), .clk_out_n(zmod_clk_out_n), .d_out_p(zmod_d_out_p), .d_out_n(zmod_d_out_n), 
         .clk_in_p(zmod_clk_in_p),   .clk_in_n(zmod_clk_in_n),   .d_in_p(zmod_d_in_p),   .d_in_n(zmod_d_in_n),
         .rxclk(zmod_rxclk)
