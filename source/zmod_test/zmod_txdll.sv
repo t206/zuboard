@@ -6,8 +6,8 @@ module zmod_txdll (
 );
 
     
-    localparam int D = 1;
-    localparam int M = 12;
+    localparam int  D = 1;
+    localparam real M = 12.5;
     localparam real R0 = 8.0;
     localparam real R1 = 2.0;
 

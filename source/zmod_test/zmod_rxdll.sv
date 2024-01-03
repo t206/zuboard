@@ -15,13 +15,13 @@ module zmod_rxdll (
     
     MMCME4_BASE #(
         .DIVCLK_DIVIDE(D),          // Master division value
-        .CLKFBOUT_MULT_F(M),      // Multiply value for all CLKOUT
-        .CLKFBOUT_PHASE(56.25),      // Phase offset in degrees of CLKFB
-        .CLKIN1_PERIOD(1.667),        // Input clock period in ns to ps resolution (i.e., 33.333 is 30 MHz).
-        .CLKOUT0_DIVIDE_F(R0),     // Divide amount for CLKOUT0
+        .CLKFBOUT_MULT_F(M),        // Multiply value for all CLKOUT
+        .CLKFBOUT_PHASE(56.25),     // Phase offset in degrees of CLKFB
+        .CLKIN1_PERIOD(1.600),      // Input clock period in ns to ps resolution (i.e., 33.333 is 30 MHz).
+        .CLKOUT0_DIVIDE_F(R0),      // Divide amount for CLKOUT0
         .CLKOUT0_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT0
         .CLKOUT0_PHASE(0.0),        // Phase offset for CLKOUT0
-        .CLKOUT1_DIVIDE(R1),         // Divide amount for CLKOUT (1-128)
+        .CLKOUT1_DIVIDE(R1),        // Divide amount for CLKOUT (1-128)
         .CLKOUT1_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT outputs (0.001-0.999).
         .CLKOUT1_PHASE(0.0),        // Phase offset for CLKOUT outputs (-360.000-360.000).
         .CLKOUT2_DIVIDE(1),         // Divide amount for CLKOUT (1-128)
