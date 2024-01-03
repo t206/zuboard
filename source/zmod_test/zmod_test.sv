@@ -18,7 +18,8 @@ module zmod_test (
 
     // tx clocks
     logic txclk, txdivclk, hssclk;
-    zmod_txpll txpll_inst (.clkin(clk), .clkout(txdivclk), .clkoutx4(txclk), .locked(txlocked));
+    //zmod_txpll txpll_inst (.clkin(clk), .clkout(txdivclk), .clkoutx4(txclk), .locked(txlocked));
+    zmod_txdll txdll_inst (.clkin(clk), .clkout(txdivclk), .clkoutx4(txclk), .locked(txlocked));
     OSERDESE3 #(.DATA_WIDTH(8), .INIT(1'b0), .IS_CLKDIV_INVERTED(1'b0), .IS_CLK_INVERTED(1'b0), .IS_RST_INVERTED(1'b0), .SIM_DEVICE("ULTRASCALE_PLUS"))
     OSERDESE3_txclk (.CLK(txclk), .CLKDIV(txdivclk), .D(8'b10101010), .RST(1'b0), .OQ(hssclk), .T(1'b0), .T_OUT());
     OBUFDS OBUFDS_hssclk (.I(hssclk), .O(clk_out_p), .OB(clk_out_n));   

@@ -14,7 +14,8 @@ read_ip ../zmod_ila/zmod_ila.xci
 upgrade_ip -quiet  [get_ips *]
 generate_target {all} [get_ips *]
 
-read_verilog -sv ../zmod_txpll.sv
+#read_verilog -sv ../zmod_txpll.sv
+read_verilog -sv ../zmod_txdll.sv
 read_verilog -sv ../zmod_rxdll.sv
 read_verilog -sv ../zmod_test.sv
 read_verilog -sv ../zmod_test_tb.sv
