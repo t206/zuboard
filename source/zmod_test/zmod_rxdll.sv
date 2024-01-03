@@ -5,18 +5,23 @@ module zmod_rxdll (
     output        locked
 );
 
+    localparam int D = 2;
+    localparam int M = 4;
+    localparam real R0 = 2.0;
+    localparam real R1 = 8.0;
+    
     logic clkin_buf, clkfb, clkout0, clkout1;
     BUFG clkin_ibuf (.O (clkin_buf), .I (clkin));
     
     MMCME4_BASE #(
-        .BANDWIDTH("OPTIMIZED"),    // Jitter programming
-        .CLKFBOUT_MULT_F(4.0),      // Multiply value for all CLKOUT
+        .DIVCLK_DIVIDE(D),          // Master division value
+        .CLKFBOUT_MULT_F(M),      // Multiply value for all CLKOUT
         .CLKFBOUT_PHASE(56.25),      // Phase offset in degrees of CLKFB
         .CLKIN1_PERIOD(1.667),        // Input clock period in ns to ps resolution (i.e., 33.333 is 30 MHz).
-        .CLKOUT0_DIVIDE_F(2.0),     // Divide amount for CLKOUT0
+        .CLKOUT0_DIVIDE_F(R0),     // Divide amount for CLKOUT0
         .CLKOUT0_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT0
         .CLKOUT0_PHASE(0.0),        // Phase offset for CLKOUT0
-        .CLKOUT1_DIVIDE(8),         // Divide amount for CLKOUT (1-128)
+        .CLKOUT1_DIVIDE(R1),         // Divide amount for CLKOUT (1-128)
         .CLKOUT1_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT outputs (0.001-0.999).
         .CLKOUT1_PHASE(0.0),        // Phase offset for CLKOUT outputs (-360.000-360.000).
         .CLKOUT2_DIVIDE(1),         // Divide amount for CLKOUT (1-128)
@@ -35,7 +40,7 @@ module zmod_rxdll (
         .CLKOUT6_DIVIDE(1),         // Divide amount for CLKOUT (1-128)
         .CLKOUT6_DUTY_CYCLE(0.5),   // Duty cycle for CLKOUT outputs (0.001-0.999).
         .CLKOUT6_PHASE(0.0),        // Phase offset for CLKOUT outputs (-360.000-360.000).
-        .DIVCLK_DIVIDE(2),          // Master division value
+        .BANDWIDTH("OPTIMIZED"),    // Jitter programming
         .IS_CLKFBIN_INVERTED(1'b0), // Optional inversion for CLKFBIN
         .IS_CLKIN1_INVERTED(1'b0),  // Optional inversion for CLKIN1
         .IS_PWRDWN_INVERTED(1'b0),  // Optional inversion for PWRDWN
