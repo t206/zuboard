@@ -24,7 +24,7 @@ Do this instead to use the pcie for an nvme drive
 
 petalinux-config -c kernel
 
-    * Drivers -> nvme -> nvme as block device.
+    * Device Drivers -> nvme -> nvme as block device.
     * Device Drivers -> Phy Subsystem -> PHY Core.
     * Device Drivers -> Phy Subsystem -> Xilinx ZynqMP PHY driver.
     * save and exit

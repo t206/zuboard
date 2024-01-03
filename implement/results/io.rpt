@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved. Copyright 2022-2023 Advanced Micro Devices, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version              : Vivado v.2023.2 (lin64) Build 4029153 Fri Oct 13 20:13:54 MDT 2023
-| Date                      : Thu Dec 28 12:06:32 2023
-| Host                      : pedro-u2022 running 64-bit Ubuntu 23.10
+| Date                      : Sun Dec 31 11:28:36 2023
+| Host                      : WD-SN850 running 64-bit Ubuntu 20.04.6 LTS
 | Command                   : report_io -file ./results/io.rpt
 | Design                    : top
 | Device                    : xczu1cg
@@ -197,7 +197,7 @@ Table of Contents
 | F6         | spi_1_sck             | High Density     | IO_L2N_AD10N_44                    | BIDIR       | LVCMOS18    |      44 |         12 |                         | SLOW |                     |            FP_VTT_50 |         | FIXED      |           |          |      | NONE             |              |                   |              |
 | F7         |                       | High Density     | IO_L4N_AD8N_44                     | User IO     |             |      44 |            |                         |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | F8         |                       | High Density     | IO_L4P_AD8P_44                     | User IO     |             |      44 |            |                         |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
-| F9         | PCIE_ENDPOINT_RESET_N |                  | PS_MIO29_501                       | PSS IO      | LVCMOS18    |         |         12 |                         | FAST |                 Ohm |                      |         |            | PULLUP    |          |      |                  |              |                   |              |
+| F9         | PCIE_ROOT_RESET_N     |                  | PS_MIO29_501                       | PSS IO      | LVCMOS18    |         |         12 |                         | FAST |                 Ohm |                      |         |            | PULLUP    |          |      |                  |              |                   |              |
 | F10        |                       |                  | VCCO_PSIO1_501                     | VCCO        |             |         |            |                         |      |                     |                      |   any** |            |           |          |      |                  |              |                   |              |
 | F11        |                       |                  | PS_MIO31_501                       | PSS IO      |             |         |            |                         |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
 | F12        |                       |                  | PS_MIO32_501                       | PSS IO      |             |         |            |                         |      |                     |                      |         |            |           |          |      |                  |              |                   |              |
