@@ -2,10 +2,10 @@
 
 module oddr_tb ();
 
-    localparam time clk_period=5; logic clk=0; always #(clk_period/2) clk=~clk;
+    localparam time clk_period=4; logic clk=0; always #(clk_period/2) clk=~clk;
 
     logic[7:0] tx_data=0; 
-    always_ff @(posedge clk) tx_data <= tx_data + 1;
+    always_ff @(posedge clk) tx_data <= #0.1 tx_data + 1;
     
     logic[3:0] d_out;
     generate for(genvar i=0; i<4; i++) begin
