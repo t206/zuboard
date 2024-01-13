@@ -47,6 +47,17 @@ float read_vccaux()
     return(vccaux);
 }
 
+float read_vccbram()
+{
+    FILE* fd_iio = fopen("/sys/bus/iio/devices/iio:device0/in_voltage3_vccbram_raw", "r");
+    char iio_str[256];
+    fscanf(fd_iio, "%s", iio_str);
+    fclose(fd_iio);
+    int iio_int = atoi(iio_str);
+    float vccbram = iio_int*3.0/65536.0;
+    return(vccbram);
+}
+
 int main(int argc,char** argv)
 {
 
@@ -58,6 +69,9 @@ int main(int argc,char** argv)
 
     float vccaux = read_vccaux();
     printf("vccaux = %f Volts;\n", vccaux);
+
+    float vccbram = read_vccbram();
+    printf("vccbram = %f Volts;\n", vccbram);
 
     return 0;
 }
