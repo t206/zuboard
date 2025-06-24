@@ -10,7 +10,7 @@ int main()
     
     uint32_t *regptr = (uint32_t *)XPAR_M00_AXI_BASEADDR;
 
-    xil_printf("regptr = %u\n\r", regptr);
+    xil_printf("regptr = %p\n\r", regptr);
 
     xil_printf("FPGA_ID = 0x%08x, FPGA_VERSION = 0x%08x\n\r", regptr[FPGA_ID], regptr[FPGA_VERSION]);
     
