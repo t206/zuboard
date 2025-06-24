@@ -1,4 +1,3 @@
-/include/ "system-conf.dtsi"
 / {
 };
 
@@ -7,10 +6,8 @@
     no-1-8-v;
 };
 
-/*
-&gem3 {
+&gem2 {
     status = "okay";
     local-mac-address = [00 0a 35 00 02 90];
 };
-*/
 
